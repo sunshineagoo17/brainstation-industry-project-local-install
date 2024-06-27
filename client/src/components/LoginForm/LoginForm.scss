@@ -1,0 +1,147 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/global/global" as *;
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &--label {
+      @include input-field-labels;
+      color: $White;
+      margin: 2rem 0 0.75rem 0;
+    }
+
+    &--input {
+      @include input-field;
+      flex: 1;
+      background-color: white;
+      line-height: 1.5rem;
+      max-height: 2.5rem;
+      max-width: 32.625rem;
+      min-width: 25.61rem;
+      border: 2px solid transparent;
+
+      &:hover {
+        border: 2px solid $Dell-Light-Blue;
+      }
+
+      &::placeholder {
+        color: $Black;
+      }
+
+      &:focus {
+        outline: none;
+        border: 2px solid $Dell-Blue;
+      }
+    }
+  }
+
+  &__submit {
+    @include auth-button;
+  }
+}
+
+.login-button__text {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.2s ease;
+  font-size: 1.5rem;
+}
+
+.login-password__wrapper {
+  display: flex;
+  max-width: 47rem;
+}
+
+.login-password__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 130%;
+}
+
+.login-email__wrapper {
+  display: flex;
+}
+
+.show-password {
+  position: absolute;
+  right: 0;
+  border: none;
+  height: 100%;
+  border-radius: 0 2px 2px 0;
+  width: 3.5rem;
+  text-align: center;
+  font-family: roboto-regular;
+  color: $Dell-Blue;
+  background-color: $Glacier;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.4s ease;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: $Dell-Blue;
+    transition: left 0.4s;
+    z-index: 1;
+  }
+
+  &:hover:before {
+    left: 0;
+  }
+
+  &:hover {
+    background-color: $Glacier;
+    color: $White;
+  }
+
+  &:active {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.show-password__hide {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.show-password__show {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.password-field {
+  &::placeholder {
+    transform: translateY(0.25rem);
+  }
+}
+
+.forgot-password {
+  color: $Dell-Light-Blue;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  width: 9rem;
+  margin: 0.75rem 0 2.375rem 0;
+  font-family: roboto-light;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: $White;
+  }
+}

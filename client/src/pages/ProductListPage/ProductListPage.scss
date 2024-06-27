@@ -1,0 +1,14 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/global/global" as *;
+
+.product-list {
+  background-color: $White;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.75rem 2.25rem;
+  }
+}

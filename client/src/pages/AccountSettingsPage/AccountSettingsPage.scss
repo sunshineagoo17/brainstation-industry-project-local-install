@@ -1,0 +1,24 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/global/global" as *;
+
+.account-settings {
+  display: flex;
+  background-color: $White;
+
+  &__nav-container {
+    display: flex;
+    width: 21.8%;
+  }
+
+  &__section-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.update-buttons {
+  margin: 3rem 0 5rem 0;
+}

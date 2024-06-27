@@ -1,0 +1,36 @@
+// When it comes to typesetting, there’s one very simple rule to follow: the bigger the type, the lighter the weight and vice versa.
+
+@font-face {
+    font-family: roboto-thin;
+    src: url(../../assets/fonts/Roboto-Thin.ttf)
+}
+
+// Largest Headlines: Sentence case or title case; tightest leading
+// Standard headlines and large subheads: Sentence case; solid leading
+@font-face {
+    font-family: roboto-light;
+    src: url(../../assets/fonts/Roboto-Light.ttf)
+}
+
+// Body: Sentence case; open leading
+@font-face {
+    font-family: roboto-regular;
+    src: url(../../assets/fonts/Roboto-Regular.ttf)
+}
+
+// Eyebrows and captions: All caps; open tracking
+@font-face {
+    font-family: roboto-medium;
+    src: url(../../assets/fonts/Roboto-Medium.ttf)
+}
+
+// Emphasis and smallest subheads: Sentence case
+@font-face {
+    font-family: roboto-bold;
+    src: url(../../assets/fonts/Roboto-Bold.ttf)
+}
+
+@font-face {
+    font-family: robotoBlack;
+    src: url(../../assets/fonts/Roboto-Black.ttf)
+}

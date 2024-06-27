@@ -1,0 +1,603 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/global/global" as *;
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.retailer {
+  &__container {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__main-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+    margin-bottom: 15.5rem;
+    width: 66.125rem;
+  }
+
+  &__tiles {
+    display: flex;
+    justify-content: row;
+    gap: 1rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    border-radius: 1rem;
+    background-color: $Glacier;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+  }
+
+  &__bestbuy-container,
+  &__newegg-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 41.25rem;
+  }
+
+  &__deviated-products {
+    max-width: 11rem;
+    min-width: 11rem;
+    height: 8.75rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    padding: 1.5rem;
+    background-color: $True-White;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &--heading {
+      font-family: roboto-light;
+      font-size: 0.9rem;
+    }
+
+    &--count {
+      font-family: roboto-bold;
+      font-size: 2rem;
+      line-height: 1.75rem;
+    }
+
+    &--icon {
+      width: 2.9325rem;
+      height: 2.9325rem;
+    }
+  }
+
+  &__average-deviation {
+    max-width: 11rem;
+    min-width: 11rem;
+    height: 8.75rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    padding: 1.5rem;
+    background-color: $True-White;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &--heading {
+      font-family: roboto-light;
+      font-size: 0.9rem;
+    }
+
+    &--count {
+      font-family: roboto-bold;
+      font-size: 2rem;
+      line-height: 1.75rem;
+    }
+
+    &--icon {
+      width: 2.9325rem;
+      height: 2.9325rem;
+    }
+  }
+
+  &__compliance-rate {
+    max-width: 11rem;
+    min-width: 11rem;
+    height: 8.75rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    padding: 1.5rem;
+    background-color: $True-White;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &--heading {
+      font-family: roboto-light;
+      font-size: 0.9rem;
+    }
+
+    &--count {
+      font-family: roboto-bold;
+      font-size: 2rem;
+      line-height: 1.75rem;
+    }
+
+    &--icon {
+      width: 2.9325rem;
+      height: 2.9325rem;
+    }
+  }
+
+  &__notify {
+    max-width: 11rem;
+    min-width: 11rem;
+    height: 8.75rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    padding: 1.5rem;
+    background: linear-gradient(
+      180deg,
+      rgb(43, 77, 153) 0%,
+      rgb(72, 128, 255) 100%
+    );
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    color: $True-White;
+    cursor: url("../../assets/icons/error-24px.svg"), auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      animation: pulse 1s infinite;
+      box-shadow: 0 0 15px 5px rgba(72, 128, 255, 0.75); /* Glow effect on hover */
+    }
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &--heading {
+      font-family: roboto-light;
+      font-size: 0.9rem;
+    }
+
+    &--copy {
+      font-family: roboto-bold;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+    }
+
+    &--icon {
+      width: 2.9325rem;
+      height: 2.9325rem;
+    }
+  }
+
+  &__bestbuy-deviated-products {
+    width: 9.3125rem;
+    height: 7.25rem;
+  }
+
+  &__details {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  &__retailer-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    padding: 1.25rem;
+    background-color: $True-White;
+    gap: 0.5rem;
+    width: 49.5rem;
+  }
+
+  &__bestbuy-container,
+  &__newegg-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.tiles__container--one {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tiles__container--two {
+  @extend .tiles__container--one;
+}
+
+.retailer-widget {
+  display: flex;
+  justify-content: center;
+  margin-right: 0;
+  width: 100%;
+  max-width: 66.125rem;
+
+  &__cart-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  &__container {
+    max-width: 14.125rem;
+    min-width: 14.125rem;
+    height: 7.6875rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    padding: 1.5rem;
+    background-color: $True-White;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 6px 0px #00000040;
+    padding: 1.25rem;
+    background-color: $True-White;
+    margin-left: 1.7rem;
+    width: 47.9375rem;
+    flex-grow: 1;
+
+    &--directions {
+      font-family: roboto-regular;
+      color: $Grey;
+      font-size: 0.9rem;
+    }
+  }
+
+  &__icon-container {
+    background-color: rgba($Purple, 0.5);
+    border-radius: 1.4375rem;
+    width: 4.4525rem;
+    height: 4.4525rem;
+    margin-left: 1rem;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &--heading {
+      font-family: roboto-light;
+      font-size: 0.9rem;
+    }
+
+    &--count {
+      font-family: roboto-bold;
+      font-size: 2rem;
+      line-height: 1.75rem;
+    }
+  }
+}
+
+strong {
+  font-family: roboto-bold;
+  font-size: 0.9rem;
+}
+
+.retailer-heading__content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &--heading,
+  &--date {
+    font-family: roboto-regular;
+    font-size: 1.5rem;
+    color: $Midnight;
+  }
+}
+
+// Table styling
+.retailer__table-container {
+  margin-bottom: 1rem;
+}
+
+// .table-container__retails {
+//   display: flex;
+//   flex-direction: row;
+//   gap: 1rem;
+// }
+
+.retailer-list__table {
+  @include flex-center;
+  margin-top: 2rem;
+  width: auto;
+}
+
+.not-available {
+  border: 2px solid grey;
+  background-color: lightgrey;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+
+.needs-attention {
+  border: 2px solid yellow;
+  background-color: lightyellow;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+
+.undetermined {
+  border: 2px solid orange;
+  background-color: lightcoral;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+
+.compliant {
+  border: 2px solid green;
+  background-color: lightgreen;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+
+.bestbuy-header {
+  background-color: #ffeb3b; // Yellow background
+}
+
+.newegg-header {
+  background-color: #ff7f50; // Coral background
+}
+
+.retailer-table {
+  display: flex;
+  box-shadow: 2px 2px 6px 0px #00000040;
+  border-radius: 1rem;
+  flex-direction: column;
+  padding: 0.5rem;
+  width: auto;
+  gap: 1rem;
+  border-collapse: collapse;
+
+  &__head {
+    color: $True-White;
+    height: 3.5rem;
+    width: 100%;
+    border-radius: 1rem;
+    @include flex-center;
+  }
+
+  &__column {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 2rem;
+    height: 100%;
+
+    &--item {
+      background-color: $Dell-Dark-Blue;
+      border-radius: 1rem;
+      border: 1px solid $True-White;
+      box-shadow: 2px 2px 6px 0px #00000040;
+      font-size: 1rem;
+      margin-left: -2rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease, transform 0.2s ease-in-out;
+      @include flex-center;
+
+      &:hover {
+        box-shadow: 2px 2px 6px 0px $Dell-Light-Blue;
+        transform: translateX(0.5rem);
+      }
+
+      &:active {
+        box-shadow: $Glacier 0px 1px 3px 0px, $Dell-Light-Blue 0px 0px 0px 1px;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__row {
+    height: 4rem;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: $True-White;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+
+    &--item {
+      border: 1px solid $Border-Grey;
+      font-size: 0.9rem;
+      color: $Table-Row-Text;
+      @include flex-center;
+    }
+  }
+}
+
+.rrow-id {
+  border-radius: 1rem 0 0 1rem;
+  width: 3.25rem;
+}
+
+.rrow-dell-product {
+  width: 10.4rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.rrow-msrp {
+  width: 4.5rem;
+}
+
+.rrow-retailer-price {
+  width: 8.2rem;
+}
+
+.rrow-deviation {
+  width: 6.8rem;
+}
+
+.rrow-compliance {
+  width: 6.5rem;
+  border-radius: 0 1rem 1rem 0;
+}
+
+.retailer-column {
+  &__id {
+    width: 3.25rem;
+    z-index: 9;
+  }
+
+  &__dell-product {
+    width: 12.5rem;
+    z-index: 8;
+    padding-left: 2rem;
+  }
+
+  &__msrp {
+    width: 6.625rem;
+    z-index: 7;
+    padding-left: 2rem;
+  }
+
+  &__retailer-price {
+    width: 10.125rem;
+    background-color: $Light-Scarlet;
+    color: $Midnight;
+    z-index: 6;
+    padding-left: 2rem;
+  }
+
+  &__deviation {
+    width: 8.625rem;
+    z-index: 5;
+    background-color: $Light-Scarlet;
+    color: $Midnight;
+    padding-left: 2rem;
+  }
+
+  &__compliance {
+    width: 8.625rem;
+    z-index: 4;
+    background-color: $Light-Scarlet;
+    color: $Midnight;
+    padding-left: 2rem;
+  }
+}
+
+.export-container {
+  width: 65rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 5rem;
+  margin-right: 1rem;
+
+  &__button {
+    @include auth-button;
+
+    &--text {
+      font-size: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+.retailer-container {
+  display: flex;
+  gap: 1rem;
+  max-width: 66.125rem;
+}
+
+.retailer-container__retailer-label--newegg,
+.retailer-container__retailer-label--bb {
+  width: 8rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $Midnight;
+  font-size: 1.2675rem;
+  font-weight: bold;
+  border-radius: 0.875rem;
+  box-shadow: 2px 2px 6px 0px #00000040;
+}
+
+.retailer-container__retailer-label--newegg {
+  margin-top: 2rem;
+  background-color: $Newegg-Orange;
+}
+
+.retailer-container__retailer-label--bb {
+  background-color: $Best-Buy-Yellow;
+}
+
+.newegg-tiles__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.non-compliant {
+    border: 1px solid $Scarlet;
+    background-color: $Light-Scarlet;
+    color: $Scarlet;
+    border-radius: 2px;
+    padding: 0.25rem;
+    font-size: 0.7rem;
+    font-family: roboto-bold;
+}

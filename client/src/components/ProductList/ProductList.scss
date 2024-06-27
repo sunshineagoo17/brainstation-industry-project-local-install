@@ -1,0 +1,325 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/global/global" as *;
+
+.product-list__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 2.5rem;
+}
+
+.offenders-widget {
+  display: flex;
+  min-width: 14.125rem;
+  max-width: 14.125rem;
+  padding: 1.25rem;
+  box-shadow: 2px 2px 6px 0px #00000040;
+  background-color: $True-White;
+  border-radius: 1rem;
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &--heading {
+      font-family: roboto-light;
+      font-size: 0.9rem;
+    }
+
+    &--count {
+      font-family: roboto-bold;
+      font-size: 2rem;
+      line-height: 1.75rem;
+    }
+  }
+}
+
+.product-list__details {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.product-list__heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 6px 0px #00000040;
+  padding: 1.25rem;
+  background-color: $True-White;
+  gap: 0.5rem;
+  width: 49.5rem;
+
+  &--directions {
+    font-family: roboto-regular;
+    color: $Grey;
+    font-size: 0.9rem;
+  }
+}
+
+strong {
+  font-family: roboto-bold;
+  font-size: 0.9rem;
+}
+
+.heading__content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &--heading {
+    font-family: roboto-regular;
+    font-size: 1.5rem;
+    color: $Midnight;
+  }
+
+  &--date {
+    @extend .heading__content--heading;
+  }
+}
+
+// Table styling
+.product-list__table {
+  @include flex-center;
+  position: relative;
+}
+
+.product-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-collapse: collapse;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 6px 0px #00000040;
+  padding: 0.5rem;
+
+  &__head {
+    color: $True-White;
+    height: 3.5rem;
+    width: 100%;
+    border-radius: 1rem;
+    @include flex-center;
+  }
+
+  &__column {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 2rem;
+    height: 100%;
+
+    &--item {
+      background-color: $Dell-Dark-Blue;
+      border-radius: 1rem;
+      border: 1px solid $True-White;
+      box-shadow: 2px 2px 6px 0px #00000040;
+      font-size: 1rem;
+      margin-left: -2rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease, transform 0.2s ease-in-out;
+      @include flex-center;
+
+      &:hover {
+        box-shadow: 2px 2px 6px 0px $Dell-Light-Blue;
+        transform: translateX(0.5rem);
+      }
+
+      &:active {
+        box-shadow: $Glacier 0px 1px 3px 0px, $Dell-Light-Blue 0px 0px 0px 1px;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__row {
+    height: 4rem;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: $True-White;
+    display: flex;
+    flex-wrap: nowrap;
+
+    &--item {
+      border: 1px solid $Border-Grey;
+      font-size: 0.9rem;
+      color: $Table-Row-Text;
+      @include flex-center;
+    }
+  }
+}
+
+.row-id {
+  border-radius: 1rem 0 0 1rem;
+  width: 3.25rem;
+}
+
+.row-name {
+  width: 11.125rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.row-msrp {
+  width: 5rem;
+}
+
+.row-bbp {
+  width: 8.7rem;
+}
+
+.row-bbd {
+  width: 6.7rem;
+}
+
+.row-bbc {
+  width: 7.4rem;
+}
+
+.row-nep {
+  width: 8.4rem;
+}
+
+.row-ned {
+  width: 6.7rem;
+}
+
+.row-nec {
+  width: 7.8rem;
+  border-radius: 0 1rem 1rem 0;
+}
+
+.product-column {
+  &__id {
+    width: 3.4rem;
+    z-index: 9;
+  }
+
+  &__name {
+    width: 12.975rem;
+    z-index: 8;
+    padding-left: 2rem;
+  }
+
+  &__msrp {
+    width: 7.2rem;
+    z-index: 7;
+    padding-left: 2rem;
+  }
+
+  &__bbp {
+    width: 10.6rem;
+    background-color: $Best-Buy-Yellow;
+    color: $Midnight;
+    z-index: 6;
+    padding-left: 2rem;
+  }
+
+  &__bbd {
+    width: 8.75rem;
+    z-index: 5;
+    background-color: $Best-Buy-Yellow;
+    color: $Midnight;
+    padding-left: 2rem;
+  }
+
+  &__bbc {
+    width: 9.3rem;
+    background-color: $Best-Buy-Yellow;
+    color: $Midnight;
+    z-index: 4;
+    padding-left: 2rem;
+  }
+
+  &__nep {
+    width: 10.45rem;
+    background-color: $Newegg-Orange;
+    z-index: 3;
+    color: $Midnight;
+    padding-left: 2rem;
+  }
+
+  &__ned {
+    width: 8.75rem;
+    background-color: $Newegg-Orange;
+    z-index: 2;
+    color: $Midnight;
+    padding-left: 2rem;
+  }
+
+  &__nec {
+    width: 9.58rem;
+    background-color: $Newegg-Orange;
+    z-index: 1;
+    color: $Midnight;
+    padding-left: 2rem;
+  }
+}
+
+.export-container {
+  width: 65rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 6.15rem;
+
+  &__button {
+    @include auth-button;
+
+    &--text {
+      font-size: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+.not-available {
+  border: 1px solid $Grey;
+  background-color: $Light-Grey;
+  color: $Grey;
+  border-radius: 2px;
+  padding: 0.25rem;
+  font-size: 0.9rem;
+  font-family: roboto-bold;
+}
+
+.compliant {
+  border: 1px solid $Compliant-Text;
+  background-color: $Compliant-bg;
+  color: $Compliant-Text;
+  border-radius: 2px;
+  padding: 0.25rem;
+  font-size: 0.9rem;
+  font-family: roboto-bold;
+}
+
+.noncompliant {
+  border: 1px solid $Scarlet;
+  background-color: $Light-Scarlet;
+  color: $Scarlet;
+  border-radius: 2px;
+  padding: 0.25rem;
+  font-size: 0.9rem;
+  font-family: roboto-bold;
+}
+
+.attention {
+  border: 1px solid $Attention-Text;
+  background-color: $Attention-bg;
+  color: $Attention-Text;
+  border-radius: 2px;
+  padding: 0.25rem;
+  font-size: 0.9rem;
+  font-family: roboto-bold;
+}

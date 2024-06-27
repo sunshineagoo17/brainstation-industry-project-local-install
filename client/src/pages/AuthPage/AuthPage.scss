@@ -1,0 +1,203 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.auth-page {
+  background-color: $Midnight;
+  width: 100%;
+  height: 84.75rem;
+  @include flex-center;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.auth-form {
+  &__heading {
+    @include auth-heading;
+    color: $Black;
+    margin: 5.5rem 0 0.5rem 0;
+  }
+
+  &__container {
+    @include flex-center;
+  }
+}
+
+.register-logo:hover {
+  filter: drop-shadow(3px 3px 2px $Glacier);
+  transform: scale(1.02);
+}
+
+.register-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45.5%;
+  background-color: $White;
+  height: 84.75rem;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5.5625rem;
+}
+
+.spectra-container {
+  width: 11.5625rem;
+  align-self: flex-end;
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 15.25rem;
+  width: 39.2%;
+}
+
+.login-form {
+  &__wrapper {
+    margin-left: 5.75rem;
+    max-width: 490px;
+  }
+
+  &__heading {
+    @include auth-heading;
+    color: $Dell-Light-Blue;
+    margin-bottom: 0.5rem;
+  }
+
+  &__container {
+    @include flex-center;
+  }
+}
+
+// Molecule Styling
+.molecule-1 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 2.75rem;
+  left: 14rem;
+  position: absolute;
+  top: 12.5rem;
+  width: 2.625rem;
+}
+.molecule-2 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 8.375rem;
+  left: 30rem;
+  position: absolute;
+  top: 5rem;
+  width: 8.125rem;
+}
+
+.molecule-3 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 5.25rem;
+  left: 23rem;
+  position: absolute;
+  top: 39rem;
+  width: 5.0625rem;
+}
+
+.molecule-4 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 12.8125rem;
+  left: 3.5rem;
+  position: absolute;
+  top: 45rem;
+  width: 12.5625rem;
+}
+
+.molecule-5 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 9.8125rem;
+  left: 14.5rem;
+  position: absolute;
+  top: 45rem;
+  width: 9.3125rem;
+  z-index: 1;
+}
+
+.molecule-6 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 11.4375rem;
+  left: 13.5rem;
+  position: absolute;
+  top: 51rem;
+  width: 11.3125rem;
+}
+
+.molecule-7 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 13.125rem;
+  left: 22rem;
+  position: absolute;
+  top: 47rem;
+  width: 13.0625rem;
+  z-index: 2;
+}
+
+.molecule-8 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 9.4375rem;
+  left: 27rem;
+  position: absolute;
+  top: 43.5rem;
+  width: 9.1875rem;
+  z-index: 1;
+}
+
+.molecule-9 {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  border-radius: 50%;
+  height: 7.125rem;
+  left: 33rem;
+  position: absolute;
+  top: 47.5rem;
+  width: 6.875rem;
+  z-index: 0;
+}

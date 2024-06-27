@@ -1,0 +1,39 @@
+@use "../partials/typography" as *;
+@use "../partials/variables" as *;
+@use "../partials/mixins" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: roboto-regular;
+}
+
+.main-page {
+  display: flex;
+  background-color: $True-White;
+  height: 100%;
+  width: 100%;
+
+  &__nav {
+    @include flex-center;
+    width: 15%;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+  }
+}
+
+.header-container {
+  @include flex-center;
+  width: 100%;
+}

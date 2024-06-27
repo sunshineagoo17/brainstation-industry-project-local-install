@@ -1,0 +1,231 @@
+@use "./variables" as *;
+
+@mixin mobile {
+  @media ((min-width: 320px) and (max-width: 767px)) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media ((min-width: 768px) and (max-width: 1279px)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media ((min-width: 1280px)) {
+    @content;
+  }
+}
+
+@mixin page-header {
+  @include mobile {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-family: roboto-bold;
+  }
+  @include tablet {
+    font-size: 3rem;
+    line-height: 3.75rem;
+    font-family: roboto-bold;
+  }
+  @include desktop {
+    font-size: 3rem;
+    line-height: 3.75rem;
+    font-family: roboto-bold;
+  }
+}
+
+@mixin subheader {
+  @include mobile {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: roboto-light;
+  }
+  @include tablet {
+    font-size: 2rem;
+    line-height: 2.55rem;
+    font-family: roboto-light;
+  }
+  @include desktop {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-family: roboto-light;
+  }
+}
+
+@mixin body-copy {
+  @include mobile {
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-family: roboto-regular;
+  }
+  @include tablet {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: roboto-regular;
+  }
+  @include desktop {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: roboto-regular;
+  }
+}
+
+@mixin labels-buttons {
+  @include mobile {
+    font-size: 0.25rem;
+    line-height: 1rem;
+    font-family: roboto-light;
+  }
+  @include tablet {
+    font-size: 0.25rem;
+    line-height: 1rem;
+    font-family: roboto-light;
+  }
+  @include desktop {
+    font-size: 0.25rem;
+    line-height: 1rem;
+    font-family: roboto-light;
+  }
+}
+
+@mixin auth-heading {
+  font-size: 2.239375rem;
+  font-family: roboto-bold;
+}
+
+@mixin input-field {
+  font-size: 1.08rem;
+  font-family: roboto-light;
+  background-color: $White;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  width: 25.56rem;
+  border-radius: 2px;
+}
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Input Field Mixin
+@mixin input-field {
+  font-size: 1.08rem;
+  font-family: roboto-light;
+  background-color: $True-White;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2px;
+  flex: 1;
+  line-height: 1.5rem;
+  max-height: 2.5rem;
+  width: 100%;
+  border: 2px solid transparent;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+  &:hover {
+    border: 2px solid $Dell-Light-Blue;
+  }
+
+  &::placeholder {
+    color: $Black;
+  }
+
+  &:focus {
+    outline: none;
+    border: 2px solid $Dell-Blue;
+  }
+}
+
+// Auth Button Mixins
+@mixin auth-button {
+  background-color: $True-White;
+  color: $Dell-Blue;
+  width: 10.875rem;
+  text-align: center;
+  padding: 1.25rem 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: $Glacier;
+    transition: left 0.4s;
+    z-index: 0;
+  }
+
+  &:hover:before {
+    left: 0;
+  }
+
+  &:hover {
+    background-color: $White;
+    transform: scale(1.03);
+  }
+
+  &:active {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+@mixin create-account-button {
+  background: linear-gradient(
+    180deg,
+    rgb(43, 77, 153) 0%,
+    rgb(72, 128, 255) 100%
+  );
+  color: $True-White;
+  width: 10.875rem;
+  text-align: center;
+  padding: 1.25rem 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, background-position 0.4s ease,
+    background-size 0.4s ease;
+  background-size: 100% 100%;
+  background-position: top;
+
+  &:hover {
+    background-size: 100% 200%;
+    background-position: bottom;
+    transform: scale(1.03);
+  }
+
+  &:active {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+@mixin input-field-labels {
+  font-size: 1.08rem;
+  line-height: 1rem;
+  font-family: roboto-bold;
+}
+
+@mixin list-label {
+  font-family: roboto-light;
+  font-size: 1.08rem;
+  color: $Dell-Light-Blue;
+  line-height: 1.25rem;
+}
