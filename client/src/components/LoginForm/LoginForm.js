@@ -1,10 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import Api from "../Api/Api";
 import "./LoginForm.scss";
-
-const url = process.env.REACT_APP_BASE_URL;
 
 const LoginForm = () => {
   const [errors, setErrors] = useState({});
@@ -44,7 +42,7 @@ const LoginForm = () => {
           email: formValues.email,
           password: formValues.password,
         };
-        const response = await axios.post(`${url}/auth/login`, loginPayload);
+        const response = await Api.post('/auth/login', loginPayload);
         const userId = response.data.id;
         const message = response.data.message;
   

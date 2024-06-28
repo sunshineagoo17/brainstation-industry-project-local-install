@@ -1,10 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import Api from "../Api/Api"; 
 import "./RegisterForm.scss";
-
-const url = process.env.REACT_APP_BASE_URL;
 
 const RegisterForm = () => {
   const [errors, setErrors] = useState({});
@@ -62,10 +60,7 @@ const RegisterForm = () => {
           email: formValues.email,
           password: formValues.password,
         };
-        const response = await axios.post(
-          `${url}/auth/register`,
-          registerPayload
-        );
+        const response = await Api.post('/auth/register', registerPayload);
 
         if (response.data.success) {
           const { id, token } = response.data;
@@ -82,7 +77,7 @@ const RegisterForm = () => {
     }
   };
 
-  const handleShowPassword = async (event) => {
+  const handleShowPassword = (event) => {
     event.preventDefault();
     setShowPassword(!showPassword);
   };
