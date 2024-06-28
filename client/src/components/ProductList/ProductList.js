@@ -38,6 +38,11 @@ const ProductList = ({ userId }) => {
   };
 
   const combineData = useCallback((dell, bestbuy, newegg) => {
+    console.log("Combining data...");
+    console.log("Dell data:", dell);
+    console.log("BestBuy data:", bestbuy);
+    console.log("Newegg data:", newegg);
+  
     let offendersCount = 0;
     const generateId = generateShortUUID();
     const combined = dell.map((dellItem) => {
