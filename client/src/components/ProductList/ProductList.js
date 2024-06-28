@@ -48,14 +48,9 @@ const ProductList = ({ userId }) => {
   // Function to combine data from Dell, BestBuy, and Newegg
   const combineData = useCallback(
     (dell, bestbuy, newegg) => {
-      // Ensure input data types are arrays
-      if (!Array.isArray(dell) || !Array.isArray(bestbuy) || !Array.isArray(newegg)) {
-        console.error('Invalid input data. Expected arrays.');
-        return [];
-      }
-  
       let offendersCount = 0;
       const generateId = generateShortUUID();
+  
       const combined = dell.map((dellItem) => {
         const bestbuyItem =
           bestbuy.find((item) => item.Dell_product === dellItem.Dell_product) || {};
@@ -97,6 +92,7 @@ const ProductList = ({ userId }) => {
           neweggCompliance: getStatus(neweggDeviation),
         };
       });
+  
       setTotalOffenders(offendersCount);
       console.log("Combined Data:", combined); // Add console log for debugging
       return combined.sort((a, b) => a.id - b.id);
