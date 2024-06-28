@@ -126,3 +126,8 @@ build/Release
 # Expo files
 .expo/
 .expo-shared/
+
+# Ignore package-lock.json in root, client, and server folders
+/package-lock.json
+/client/package-lock.json
+/server/package-lock.json
