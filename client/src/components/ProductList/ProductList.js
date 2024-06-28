@@ -43,63 +43,65 @@ const ProductList = ({ userId }) => {
     const combined = dell.map((dellItem) => {
       const bestbuyItem = bestbuy.find((item) => item.Dell_product === dellItem.Dell_product) || {};
       const neweggItem = newegg.find((item) => item.Dell_product === dellItem.Dell_product) || {};
-
+  
       const bestbuyPrice = parseFloat(bestbuyItem.Bestbuy_price);
       const neweggPrice = parseFloat(neweggItem.Newegg_price);
       const msrp = parseFloat(dellItem.Dell_price);
-
+  
       const bestbuyDeviation = bestbuyPrice ? ((bestbuyPrice - msrp) / msrp) * 100 : NaN;
       const neweggDeviation = neweggPrice ? ((neweggPrice - msrp) / msrp) * 100 : NaN;
-
+  
       if (!isNaN(bestbuyDeviation) && getStatus(bestbuyDeviation) !== "Compliant") {
         offendersCount++;
       }
       if (!isNaN(neweggDeviation) && getStatus(neweggDeviation) !== "Compliant") {
         offendersCount++;
       }
-
+  
       return {
         id: generateId(),
         dellProductName: dellItem.Dell_product,
         msrp: dellItem.Dell_price,
         bestbuyPrice: bestbuyItem.Bestbuy_price ? `$${parseFloat(bestbuyItem.Bestbuy_price).toFixed(2)}` : "Not Available",
-        bestbuyDeviation: !isNaN(bestbuyDeviation) ? bestbuyDeviation.toFixed(2) + "%" : "N/A",
+        bestbuyDeviation: !isNaN(bestbuyDeviation) ? `${bestbuyDeviation.toFixed(2)}%` : "N/A",
         bestbuyCompliance: getStatus(bestbuyDeviation),
         neweggPrice: neweggItem.Newegg_price ? `$${parseFloat(neweggItem.Newegg_price).toFixed(2)}` : "Not Available",
-        neweggDeviation: !isNaN(neweggDeviation) ? neweggDeviation.toFixed(2) + "%" : "N/A",
+        neweggDeviation: !isNaN(neweggDeviation) ? `${neweggDeviation.toFixed(2)}%` : "N/A",
         neweggCompliance: getStatus(neweggDeviation),
       };
     });
-
+  
     setTotalOffenders(offendersCount);
     console.log("Combined Data:", combined); // Debugging
     return combined.sort((a, b) => a.id - b.id);
-  }, [generateShortUUID]);
+  }, [generateShortUUID]);  
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const dellData = await axios.get(`${url}/api/data/dell`);
-        console.log('Fetched Dell Data:', dellData.data);
-        const bestbuyData = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
-        console.log('Fetched BestBuy Data:', bestbuyData.data);
-        const neweggData = await axios.get(`${url}/api/data/compare/dell-newegg`);
-        console.log('Fetched Newegg Data:', neweggData.data);
+        const dellResponse = await axios.get(`${url}/api/data/dell`);
+        const bestbuyResponse = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
+        const neweggResponse = await axios.get(`${url}/api/data/compare/dell-newegg`);
   
-        if (!Array.isArray(dellData.data) || dellData.data.length === 0) {
-          console.error('Dell data is empty or not an array');
-          return;
+        console.log("Fetched Dell Data:", dellResponse.data); // Log dell data
+        console.log("Fetched BestBuy Data:", bestbuyResponse.data); // Log bestbuy data
+        console.log("Fetched Newegg Data:", neweggResponse.data); // Log newegg data
+  
+        if (!Array.isArray(dellResponse.data)) {
+          console.error("Dell data is not an array:", dellResponse.data);
         }
-        if (!Array.isArray(bestbuyData.data) || bestbuyData.data.length === 0) {
-          console.error('BestBuy data is empty or not an array');
-          return;
+        if (!Array.isArray(bestbuyResponse.data)) {
+          console.error("BestBuy data is not an array:", bestbuyResponse.data);
         }
-        if (!Array.isArray(neweggData.data) || neweggData.data.length === 0) {
-          console.error('Newegg data is empty or not an array');
-          return;
+        if (!Array.isArray(neweggResponse.data)) {
+          console.error("Newegg data is not an array:", neweggResponse.data);
         }
   
-        const combinedData = combineData(dellData.data, bestbuyData.data, neweggData.data);
+        const combinedData = combineData(
+          dellResponse.data,
+          bestbuyResponse.data,
+          neweggResponse.data
+        );
         setProducts(combinedData);
       } catch (error) {
         console.error("Error fetching data:", error);
