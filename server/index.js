@@ -2,7 +2,13 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const csvtojson = require('csvtojson');
-const cors = require('cors');
+let cors;
+try {
+  cors = require('cors');
+  console.log('CORS module loaded successfully');
+} catch (error) {
+  console.error('Failed to load CORS module:', error);
+}
 require('dotenv').config();
 
 const app = express();
@@ -18,11 +24,15 @@ const dataRoutes = require('./routes/data');
 // Load environment variables
 const { CORS_ORIGIN, DATA_DIR } = process.env;
 
-// Enable CORS for all routes
-app.use(cors({
-  origin: CORS_ORIGIN,
-  credentials: true
-}));
+// Enable CORS for all routes if the module is loaded
+if (cors) {
+  app.use(cors({
+    origin: CORS_ORIGIN,
+    credentials: true
+  }));
+} else {
+  console.error('CORS middleware not loaded.');
+}
 
 // Middleware to parse JSON bodies
 app.use(express.json());
