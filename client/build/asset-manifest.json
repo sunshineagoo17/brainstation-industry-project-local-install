@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/static/css/main.31667f99.css",
+    "main.js": "/static/js/main.49c92900.js",
+    "static/media/Roboto-Medium.ttf": "/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
+    "static/media/Roboto-Thin.ttf": "/static/media/Roboto-Thin.a732a12eb07742232407.ttf",
+    "static/media/Roboto-Regular.ttf": "/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/Roboto-Black.ttf": "/static/media/Roboto-Black.cf56c1b149d0a5e8d7c6.ttf",
+    "static/media/Roboto-Bold.ttf": "/static/media/Roboto-Bold.f80816a5455d171f948d.ttf",
+    "static/media/Roboto-Light.ttf": "/static/media/Roboto-Light.333da16a3f3cc391d087.ttf",
+    "static/media/dell-spectra-logo-wh.svg": "/static/media/dell-spectra-logo-wh.7092c2644fbea4681622366ef1e69380.svg",
+    "static/media/dell-spectra-logo-dark.svg": "/static/media/dell-spectra-logo-dark.441d7b385cd22e8095d85165c934d887.svg",
+    "static/media/efficiency.svg": "/static/media/efficiency.e7775db0e1d1fb8969f99e648626fae5.svg",
+    "static/media/scalability-icon.svg": "/static/media/scalability-icon.eb41fccf9b296e5f678a9d316d77fae1.svg",
+    "static/media/monitoring-icon.svg": "/static/media/monitoring-icon.67d4b6e03551c8a56f15cbdfe72bd833.svg",
+    "static/media/retailers-icon.svg": "/static/media/retailers-icon.957ea05d37d67c57ec89aa225083ceba.svg",
+    "static/media/box-icon.svg": "/static/media/box-icon.6b196e151326f999a726d9d609e806bd.svg",
+    "static/media/login-icon.svg": "/static/media/login-icon.930b1b1201036ea9674ba5650c60b26e.svg",
+    "static/media/detection-icon.svg": "/static/media/detection-icon.6774ace6b05f5618d465599f8a63f907.svg",
+    "static/media/market-stability.svg": "/static/media/market-stability.f29bffd1d6456f6ec5d12cfc5ba5735a.svg",
+    "static/media/box-full-icon.svg": "/static/media/box-full-icon.f86a4fee963e49b3d84a7d9e12e9b77c.svg",
+    "static/media/notify-icon.svg": "/static/media/notify-icon.0a2f2b99dcb73ed7faa589efef4226de.svg",
+    "index.html": "/index.html",
+    "static/media/compliance-rate-icon.svg": "/static/media/compliance-rate-icon.22f55808533b7891338128a9e2d12488.svg",
+    "static/media/data-analysis-icon.svg": "/static/media/data-analysis-icon.9c26b93eb7dfe06ab365a0209f2a664e.svg",
+    "static/media/alert-icon.svg": "/static/media/alert-icon.ff7fa5360b8295dd8e618028fb3d6397.svg",
+    "static/media/account-icon.svg": "/static/media/account-icon.9ed820a5174338aa0844f0019ceede19.svg",
+    "static/media/dashboard-icon.svg": "/static/media/dashboard-icon.31c306dbaea920c51487cd9a93c7f88f.svg",
+    "static/media/logout-icon.svg": "/static/media/logout-icon.bd01ba5a0efd304bd082a9b17533fdbb.svg",
+    "static/media/shopping-cart.svg": "/static/media/shopping-cart.77ae3e159c14b35b51274dd5031151c7.svg",
+    "static/media/products-icon.svg": "/static/media/products-icon.1a01488bba921dd73ad1adf526be7b6a.svg",
+    "static/media/search-icon.svg": "/static/media/search-icon.bf147dbed81db8409158b419fd1bd30d.svg",
+    "static/media/person-icon.svg": "/static/media/person-icon.bde2291b0c217dda1d66c2046a78c0fc.svg",
+    "static/media/brand-icon.svg": "/static/media/brand-icon.e1e31568cfc868a7f8c706ca85cf2ecc.svg",
+    "static/media/error-24px.svg": "/static/media/error-24px.eed74db22e59ad00c516d6ed6b40a8ce.svg",
+    "main.31667f99.css.map": "/static/css/main.31667f99.css.map",
+    "main.49c92900.js.map": "/static/js/main.49c92900.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31667f99.css",
+    "static/js/main.49c92900.js"
+  ]
+}
