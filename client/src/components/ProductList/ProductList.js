@@ -63,10 +63,10 @@ const ProductList = ({ userId }) => {
         dellProductName: dellItem.Dell_product,
         msrp: dellItem.Dell_price,
         bestbuyPrice: bestbuyItem.Bestbuy_price ? `$${parseFloat(bestbuyItem.Bestbuy_price).toFixed(2)}` : "Not Available",
-        bestbuyDeviation: bestbuyDeviation ? `${bestbuyDeviation.toFixed(2)}%` : "N/A",
+        bestbuyDeviation: !isNaN(bestbuyDeviation) ? bestbuyDeviation.toFixed(2) + "%" : "N/A",
         bestbuyCompliance: getStatus(bestbuyDeviation),
         neweggPrice: neweggItem.Newegg_price ? `$${parseFloat(neweggItem.Newegg_price).toFixed(2)}` : "Not Available",
-        neweggDeviation: neweggDeviation ? `${neweggDeviation.toFixed(2)}%` : "N/A",
+        neweggDeviation: !isNaN(neweggDeviation) ? neweggDeviation.toFixed(2) + "%" : "N/A",
         neweggCompliance: getStatus(neweggDeviation),
       };
     });
@@ -83,14 +83,18 @@ const ProductList = ({ userId }) => {
         const bestbuyData = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
         const neweggData = await axios.get(`${url}/api/data/compare/dell-newegg`);
 
+        console.log('Fetched Dell Data:', dellData.data);
+        console.log('Fetched BestBuy Data:', bestbuyData.data);
+        console.log('Fetched Newegg Data:', neweggData.data);
+
         if (!Array.isArray(dellData.data)) {
-          console.error('Expected dellData to be an array');
+          console.error('Expected dellData to be an array', dellData.data);
         }
         if (!Array.isArray(bestbuyData.data)) {
-          console.error('Expected bestbuyData to be an array');
+          console.error('Expected bestbuyData to be an array', bestbuyData.data);
         }
         if (!Array.isArray(neweggData.data)) {
-          console.error('Expected neweggData to be an array');
+          console.error('Expected neweggData to be an array', neweggData.data);
         }
 
         const combinedData = combineData(dellData.data, bestbuyData.data, neweggData.data);
