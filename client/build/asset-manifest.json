@@ -1,13 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.31667f99.css",
-    "main.js": "/static/js/main.49c92900.js",
+    "main.js": "/static/js/main.2c98b481.js",
     "static/media/Roboto-Medium.ttf": "/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
     "static/media/Roboto-Thin.ttf": "/static/media/Roboto-Thin.a732a12eb07742232407.ttf",
     "static/media/Roboto-Regular.ttf": "/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
     "static/media/Roboto-Black.ttf": "/static/media/Roboto-Black.cf56c1b149d0a5e8d7c6.ttf",
     "static/media/Roboto-Bold.ttf": "/static/media/Roboto-Bold.f80816a5455d171f948d.ttf",
     "static/media/Roboto-Light.ttf": "/static/media/Roboto-Light.333da16a3f3cc391d087.ttf",
+    "static/media/axios.cjs": "/static/media/axios.cd0a976556d6411f77a7.cjs",
     "static/media/dell-spectra-logo-wh.svg": "/static/media/dell-spectra-logo-wh.7092c2644fbea4681622366ef1e69380.svg",
     "static/media/dell-spectra-logo-dark.svg": "/static/media/dell-spectra-logo-dark.441d7b385cd22e8095d85165c934d887.svg",
     "static/media/efficiency.svg": "/static/media/efficiency.e7775db0e1d1fb8969f99e648626fae5.svg",
@@ -34,10 +35,10 @@
     "static/media/brand-icon.svg": "/static/media/brand-icon.e1e31568cfc868a7f8c706ca85cf2ecc.svg",
     "static/media/error-24px.svg": "/static/media/error-24px.eed74db22e59ad00c516d6ed6b40a8ce.svg",
     "main.31667f99.css.map": "/static/css/main.31667f99.css.map",
-    "main.49c92900.js.map": "/static/js/main.49c92900.js.map"
+    "main.2c98b481.js.map": "/static/js/main.2c98b481.js.map"
   },
   "entrypoints": [
     "static/css/main.31667f99.css",
-    "static/js/main.49c92900.js"
+    "static/js/main.2c98b481.js"
   ]
 }
