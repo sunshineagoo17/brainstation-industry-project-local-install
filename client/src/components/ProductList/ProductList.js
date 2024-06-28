@@ -48,23 +48,27 @@ const ProductList = ({ userId }) => {
   // Function to combine data from Dell, BestBuy, and Newegg
   const combineData = useCallback(
     (dell, bestbuy, newegg) => {
+      // Ensure input data types are arrays
+      if (!Array.isArray(dell) || !Array.isArray(bestbuy) || !Array.isArray(newegg)) {
+        console.error('Invalid input data. Expected arrays.');
+        return [];
+      }
+  
       let offendersCount = 0;
       const generateId = generateShortUUID();
       const combined = dell.map((dellItem) => {
         const bestbuyItem =
-          bestbuy.find((item) => item.Dell_product === dellItem.Dell_product) ||
-          {};
+          bestbuy.find((item) => item.Dell_product === dellItem.Dell_product) || {};
         const neweggItem =
-          newegg.find((item) => item.Dell_product === dellItem.Dell_product) ||
-          {};
-
+          newegg.find((item) => item.Dell_product === dellItem.Dell_product) || {};
+  
         const bestbuyPrice = parseFloat(bestbuyItem.Bestbuy_price);
         const neweggPrice = parseFloat(neweggItem.Newegg_price);
         const msrp = parseFloat(dellItem.Dell_price);
-
+  
         const bestbuyDeviation = bestbuyPrice ? ((bestbuyPrice - msrp) / msrp) * 100 : NaN;
         const neweggDeviation = neweggPrice ? ((neweggPrice - msrp) / msrp) * 100 : NaN;
-
+  
         // Count as non-compliant if deviation is not within the compliant range
         if (!isNaN(bestbuyDeviation) && getStatus(bestbuyDeviation) !== "Compliant") {
           offendersCount++;
@@ -72,7 +76,7 @@ const ProductList = ({ userId }) => {
         if (!isNaN(neweggDeviation) && getStatus(neweggDeviation) !== "Compliant") {
           offendersCount++;
         }
-
+  
         return {
           id: generateId(),
           dellProductName: dellItem.Dell_product,
@@ -98,7 +102,7 @@ const ProductList = ({ userId }) => {
       return combined.sort((a, b) => a.id - b.id);
     },
     [generateShortUUID]
-  );
+  );  
 
   const currentDate = new Date().toLocaleDateString("en-US", {
     year: "numeric",
