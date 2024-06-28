@@ -80,32 +80,34 @@ const ProductList = ({ userId }) => {
     const fetchProducts = async () => {
       try {
         const dellData = await axios.get(`${url}/api/data/dell`);
-        const bestbuyData = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
-        const neweggData = await axios.get(`${url}/api/data/compare/dell-newegg`);
-
         console.log('Fetched Dell Data:', dellData.data);
+        const bestbuyData = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
         console.log('Fetched BestBuy Data:', bestbuyData.data);
+        const neweggData = await axios.get(`${url}/api/data/compare/dell-newegg`);
         console.log('Fetched Newegg Data:', neweggData.data);
-
-        if (!Array.isArray(dellData.data)) {
-          console.error('Expected dellData to be an array', dellData.data);
+  
+        if (!Array.isArray(dellData.data) || dellData.data.length === 0) {
+          console.error('Dell data is empty or not an array');
+          return;
         }
-        if (!Array.isArray(bestbuyData.data)) {
-          console.error('Expected bestbuyData to be an array', bestbuyData.data);
+        if (!Array.isArray(bestbuyData.data) || bestbuyData.data.length === 0) {
+          console.error('BestBuy data is empty or not an array');
+          return;
         }
-        if (!Array.isArray(neweggData.data)) {
-          console.error('Expected neweggData to be an array', neweggData.data);
+        if (!Array.isArray(neweggData.data) || neweggData.data.length === 0) {
+          console.error('Newegg data is empty or not an array');
+          return;
         }
-
+  
         const combinedData = combineData(dellData.data, bestbuyData.data, neweggData.data);
         setProducts(combinedData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
+  
     fetchProducts();
-  }, [combineData]);
+  }, [combineData]);  
 
   const handleExport = () => {
     if (products.length === 0) {

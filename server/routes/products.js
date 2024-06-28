@@ -13,6 +13,21 @@ function getCurrentDate() {
   return `${current_time.getFullYear()}${String(current_time.getMonth() + 1).padStart(2, '0')}${String(current_time.getDate()).padStart(2, '0')}`;
 }
 
+// Endpoint to fetch Dell data
+router.get('/dell', async (req, res) => {
+  const date = getCurrentDate();
+  const dellFilePath = path.join(DATA_DIR, `official_dell_monitor_${date}.csv`);
+
+  try {
+    const dellData = await csvtojson().fromFile(dellFilePath);
+    console.log('Dell Data:', dellData); // Log the data
+    res.json(dellData);
+  } catch (error) {
+    console.error(`Error fetching Dell data: ${error.message}`);
+    res.status(500).json({ message: 'Error fetching Dell data', error });
+  }
+});
+
 // Endpoint to fetch BestBuy comparison data
 router.get('/compare/dell-bestbuy', async (req, res) => {
   const date = getCurrentDate();
@@ -20,8 +35,9 @@ router.get('/compare/dell-bestbuy', async (req, res) => {
 
   try {
     const bestbuyData = await csvtojson().fromFile(bestbuyFilePath);
-    if (!Array.isArray(bestbuyData)) {
-      throw new Error('Expected array from bestbuyData');
+    console.log('BestBuy Data:', bestbuyData); // Log the data
+    if (bestbuyData.length === 0) {
+      return res.status(204).json({ message: 'No content' });
     }
     res.json(bestbuyData);
   } catch (error) {
@@ -37,8 +53,9 @@ router.get('/compare/dell-newegg', async (req, res) => {
 
   try {
     const neweggData = await csvtojson().fromFile(neweggFilePath);
-    if (!Array.isArray(neweggData)) {
-      throw new Error('Expected array from neweggData');
+    console.log('Newegg Data:', neweggData); // Log the data
+    if (neweggData.length === 0) {
+      return res.status(204).json({ message: 'No content' });
     }
     res.json(neweggData);
   } catch (error) {
@@ -61,14 +78,12 @@ router.get('/', async (req, res) => {
       csvtojson().fromFile(neweggFilePath)
     ]);
 
-    if (!Array.isArray(dellData)) {
-      throw new Error('Expected array from dellData');
-    }
-    if (!Array.isArray(bestbuyData)) {
-      throw new Error('Expected array from bestbuyData');
-    }
-    if (!Array.isArray(neweggData)) {
-      throw new Error('Expected array from neweggData');
+    console.log('Dell Data:', dellData); // Log the data
+    console.log('BestBuy Data:', bestbuyData); // Log the data
+    console.log('Newegg Data:', neweggData); // Log the data
+
+    if (dellData.length === 0 || bestbuyData.length === 0 || neweggData.length === 0) {
+      return res.status(204).json({ message: 'No content' });
     }
 
     res.json({ dellData, bestbuyData, neweggData });
