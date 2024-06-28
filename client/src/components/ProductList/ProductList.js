@@ -110,15 +110,20 @@ const ProductList = ({ userId }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const dellData = await axios.get(`${url}/api/data/dell`);
-        const bestbuyData = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
-        const neweggData = await axios.get(`${url}/api/data/compare/dell-newegg`);
+        const dellResponse = await axios.get(`${url}/api/data/dell`);
+        const bestbuyResponse = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
+        const neweggResponse = await axios.get(`${url}/api/data/compare/dell-newegg`);
   
-        const combinedData = combineData(
-          dellData.data,
-          bestbuyData.data,
-          neweggData.data
-        );
+        console.log("Dell Response:", dellResponse.data);
+        console.log("BestBuy Response:", bestbuyResponse.data);
+        console.log("Newegg Response:", neweggResponse.data);
+  
+        // Ensure each response is an array before proceeding
+        const dellData = Array.isArray(dellResponse.data) ? dellResponse.data : [];
+        const bestbuyData = Array.isArray(bestbuyResponse.data) ? bestbuyResponse.data : [];
+        const neweggData = Array.isArray(neweggResponse.data) ? neweggResponse.data : [];
+  
+        const combinedData = combineData(dellData, bestbuyData, neweggData);
         setProducts(combinedData);
       } catch (error) {
         console.error("Error fetching data:", error);
