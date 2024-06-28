@@ -19,16 +19,8 @@ const dataRoutes = require('./routes/data');
 const { CORS_ORIGIN, DATA_DIR } = process.env;
 
 // Enable CORS for all routes
-const allowedOrigins = ['http://localhost:3000', 'https://spectra-de1476b6df25.herokuapp.com'];
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // Allow requests with no origin (like mobile apps or curl requests)
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: CORS_ORIGIN,
   credentials: true
 }));
 
