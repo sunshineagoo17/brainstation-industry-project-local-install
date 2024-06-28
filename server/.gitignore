@@ -13,3 +13,6 @@ uploads/
 # Python cache files
 __pycache__/
 *.pyc
+
+# Ignore package-lock.json in root, client, and server folders
+/package-lock.json

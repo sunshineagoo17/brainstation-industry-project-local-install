@@ -1,2 +1,4 @@
 node_modules/
 .env
+# Ignore package-lock.json in root, client, and server folders
+/package-lock.json
