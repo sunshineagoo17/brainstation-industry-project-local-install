@@ -13,20 +13,6 @@ function getCurrentDate() {
   return `${current_time.getFullYear()}${String(current_time.getMonth() + 1).padStart(2, '0')}${String(current_time.getDate()).padStart(2, '0')}`;
 }
 
-// Endpoint to fetch Dell data
-router.get('/dell', async (req, res) => {
-  const date = getCurrentDate();
-  const dellFilePath = path.join(DATA_DIR, `official_dell_monitor_${date}.csv`);
-
-  try {
-    const dellData = await csvtojson().fromFile(dellFilePath);
-    res.json(dellData);
-  } catch (error) {
-    console.error(`Error fetching Dell data: ${error.message}`);
-    res.status(500).json({ message: 'Error fetching Dell data', error });
-  }
-});
-
 // Endpoint to fetch BestBuy comparison data
 router.get('/compare/dell-bestbuy', async (req, res) => {
   const date = getCurrentDate();
@@ -34,6 +20,9 @@ router.get('/compare/dell-bestbuy', async (req, res) => {
 
   try {
     const bestbuyData = await csvtojson().fromFile(bestbuyFilePath);
+    if (!Array.isArray(bestbuyData)) {
+      throw new Error('Expected array from bestbuyData');
+    }
     res.json(bestbuyData);
   } catch (error) {
     console.error(`Error fetching BestBuy data: ${error.message}`);
@@ -48,6 +37,9 @@ router.get('/compare/dell-newegg', async (req, res) => {
 
   try {
     const neweggData = await csvtojson().fromFile(neweggFilePath);
+    if (!Array.isArray(neweggData)) {
+      throw new Error('Expected array from neweggData');
+    }
     res.json(neweggData);
   } catch (error) {
     console.error(`Error fetching Newegg data: ${error.message}`);
@@ -68,6 +60,16 @@ router.get('/', async (req, res) => {
       csvtojson().fromFile(bestbuyFilePath),
       csvtojson().fromFile(neweggFilePath)
     ]);
+
+    if (!Array.isArray(dellData)) {
+      throw new Error('Expected array from dellData');
+    }
+    if (!Array.isArray(bestbuyData)) {
+      throw new Error('Expected array from bestbuyData');
+    }
+    if (!Array.isArray(neweggData)) {
+      throw new Error('Expected array from neweggData');
+    }
 
     res.json({ dellData, bestbuyData, neweggData });
   } catch (error) {

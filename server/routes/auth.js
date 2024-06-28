@@ -52,6 +52,7 @@ router.post('/login', async (req, res) => {
     console.error('Unable to Login: ', error);
     return res.status(500).json({
       message: 'Internal Server Error',
+      error: error.message,
     });
   }
 });
