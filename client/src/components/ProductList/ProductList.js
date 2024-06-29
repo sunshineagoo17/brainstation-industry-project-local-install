@@ -72,15 +72,15 @@ const ProductList = ({ userId }) => {
           axios.get(`${url}/api/data/compare/dell-bestbuy`),
           axios.get(`${url}/api/data/compare/dell-newegg`)
         ]);
-
-        console.log("Dell response:", dellResponse.data);
-        console.log("BestBuy response:", bestbuyResponse.data);
-        console.log("Newegg response:", neweggResponse.data);
-
+  
+        console.log("Dell response length:", dellResponse.data.length);
+        console.log("BestBuy response length:", bestbuyResponse.data.length);
+        console.log("Newegg response length:", neweggResponse.data.length);
+  
         if (!Array.isArray(dellResponse.data) || !Array.isArray(bestbuyResponse.data) || !Array.isArray(neweggResponse.data)) {
           throw new Error("Expected JSON response to be an array");
         }
-
+  
         const combinedData = combineData(
           dellResponse.data,
           bestbuyResponse.data,
@@ -91,10 +91,10 @@ const ProductList = ({ userId }) => {
         console.error("Error fetching data:", error.message);
       }
     };
-
+  
     fetchProducts();
   }, [combineData]);
-
+  
   const handleExport = () => {
     if (products.length === 0) {
       console.warn("No products to export.");

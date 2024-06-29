@@ -66,6 +66,7 @@ const createDataEndpoint = (route, filePattern) => {
       }
 
       const data = await csvtojson().fromFile(filePath);
+      console.log(`Number of items in ${filePath}: ${data.length}`);
       if (!Array.isArray(data)) {
         console.error('Data is not an array:', data);
         return res.status(500).json({ message: 'Error: Expected data to be an array' });
