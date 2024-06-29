@@ -40,6 +40,7 @@ const Header = ({ userId }) => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("jwt"); // Check the token
       console.log("Token in Header:", token); // Debug log for token
+      console.log("LoggedIn:", loggedIn, "UserId:", userId); // Debug log for loggedIn and userId
       if (loggedIn && userId) {
         try {
           const response = await axios.get(`${url}/dashboard/${userId}`, {
@@ -51,8 +52,6 @@ const Header = ({ userId }) => {
         } catch (error) {
           console.error(`Error fetching user data: ${error.message}`);
         }
-      } else {
-        console.log('LoggedIn:', loggedIn, 'UserId:', userId);
       }
     };
 
