@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const fs = require('fs');
 const csvtojson = require('csvtojson');
 require('dotenv').config();
 
@@ -13,18 +14,26 @@ function getCurrentDate() {
   return `${current_time.getFullYear()}${String(current_time.getMonth() + 1).padStart(2, '0')}${String(current_time.getDate()).padStart(2, '0')}`;
 }
 
+// Utility function to fetch data from a CSV file
+const fetchDataFromFile = async (filePath) => {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File does not exist: ${filePath}`);
+  }
+  return await csvtojson().fromFile(filePath);
+};
+
 // Endpoint to fetch Dell data
 router.get('/dell', async (req, res) => {
   const date = getCurrentDate();
   const dellFilePath = path.join(DATA_DIR, `official_dell_monitor_${date}.csv`);
 
   try {
-    const dellData = await csvtojson().fromFile(dellFilePath);
+    const dellData = await fetchDataFromFile(dellFilePath);
     console.log('Fetched Dell Data:', dellData);
     res.json(Array.isArray(dellData) ? dellData : []);
   } catch (error) {
     console.error(`Error fetching Dell data: ${error.message}`);
-    res.status(500).json({ message: 'Error fetching Dell data', error });
+    res.status(500).json({ message: 'Error fetching Dell data', error: error.message });
   }
 });
 
@@ -34,12 +43,12 @@ router.get('/compare/dell-bestbuy', async (req, res) => {
   const bestbuyFilePath = path.join(DATA_DIR, `bestbuy_comparison_${date}.csv`);
 
   try {
-    const bestbuyData = await csvtojson().fromFile(bestbuyFilePath);
+    const bestbuyData = await fetchDataFromFile(bestbuyFilePath);
     console.log('Fetched BestBuy Data:', bestbuyData);
     res.json(Array.isArray(bestbuyData) ? bestbuyData : []);
   } catch (error) {
     console.error(`Error fetching BestBuy data: ${error.message}`);
-    res.status(500).json({ message: 'Error fetching BestBuy data', error });
+    res.status(500).json({ message: 'Error fetching BestBuy data', error: error.message });
   }
 });
 
@@ -49,12 +58,12 @@ router.get('/compare/dell-newegg', async (req, res) => {
   const neweggFilePath = path.join(DATA_DIR, `newegg_comparison_${date}.csv`);
 
   try {
-    const neweggData = await csvtojson().fromFile(neweggFilePath);
+    const neweggData = await fetchDataFromFile(neweggFilePath);
     console.log('Fetched Newegg Data:', neweggData);
     res.json(Array.isArray(neweggData) ? neweggData : []);
   } catch (error) {
     console.error(`Error fetching Newegg data: ${error.message}`);
-    res.status(500).json({ message: 'Error fetching Newegg data', error });
+    res.status(500).json({ message: 'Error fetching Newegg data', error: error.message });
   }
 });
 
@@ -67,23 +76,23 @@ router.get('/', async (req, res) => {
 
   try {
     const [dellData, bestbuyData, neweggData] = await Promise.all([
-      csvtojson().fromFile(dellFilePath),
-      csvtojson().fromFile(bestbuyFilePath),
-      csvtojson().fromFile(neweggFilePath)
+      fetchDataFromFile(dellFilePath),
+      fetchDataFromFile(bestbuyFilePath),
+      fetchDataFromFile(neweggFilePath)
     ]);
 
     console.log('Fetched Dell Data:', dellData);
     console.log('Fetched BestBuy Data:', bestbuyData);
     console.log('Fetched Newegg Data:', neweggData);
 
-    if (!Array.isArray(dellData) || !Array.isArray(bestbuyData) || !Array.isArray(neweggData)) {
-      return res.status(204).json({ message: 'No content' });
-    }
-
-    res.json({ dellData, bestbuyData, neweggData });
+    res.json({
+      dellData: Array.isArray(dellData) ? dellData : [],
+      bestbuyData: Array.isArray(bestbuyData) ? bestbuyData : [],
+      neweggData: Array.isArray(neweggData) ? neweggData : []
+    });
   } catch (error) {
     console.error(`Error fetching all products data: ${error.message}`);
-    res.status(500).json({ message: 'Error fetching all products data', error });
+    res.status(500).json({ message: 'Error fetching all products data', error: error.message });
   }
 });
 
