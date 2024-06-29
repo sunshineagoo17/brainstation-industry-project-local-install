@@ -5,7 +5,8 @@
     "main": "server/index.js",
     "scripts": {
       "start": "node server/index.js",
-      "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm install --prefix server && npm run build --prefix client"
+      "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm install --prefix server && npm run build --prefix client",
+      "migrate-and-seed": "npx knex migrate:latest && npx knex seed:run"
     },
     "dependencies": {
       "express": "^4.17.1",
