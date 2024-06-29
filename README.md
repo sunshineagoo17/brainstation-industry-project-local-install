@@ -140,8 +140,8 @@ The Account Settings Page allows users to update their personal information and 
 ### Steps
 1. Clone the repository:
 - In bash:
-  - git clone https://github.com/sunshineagoo17/spectra-dell-industry-project.git
-  - cd spectra-dell-industry-project
+  - git clone https://github.com/sunshineagoo17/dell-project-spectra-local-install.git
+  - cd dell-project-spectra-local-install
 
 2. Install dependencies:
 - npm install
@@ -150,7 +150,7 @@ The Account Settings Page allows users to update their personal information and 
 
 3. Create .env files:
 - In the client folder, create a .env file with the following content:
-REACT_APP_BASE_URL=https://dell-technologies-spectra-8b1af00a7312.herokuapp.com
+REACT_APP_BASE_URL=http://localhost:8080
 - In the server root folder, create a .env file with the following content:
 
 **# Port**
@@ -163,7 +163,7 @@ DB_USER=root
 DB_PASSWORD=rootroot
 
 **# CORS**
-CORS_ORIGIN=https://dell-technologies-spectra-8b1af00a7312.herokuapp.com
+CORS_ORIGIN=http://localhost:3000
 
 **# JWT Config**
 JWT_SECRET=your_jwt_secret
@@ -171,6 +171,9 @@ JWT_EXPIRY=1h
 
 **# Data Directory**
 DATA_DIR=./scripts/data
+
+**# Base URL for your backend**
+BASE_URL=http://localhost:8080
 
 4. Configure the database:
 - Log in to MySQL
