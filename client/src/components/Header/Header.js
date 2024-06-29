@@ -40,8 +40,8 @@ const Header = ({ userId }) => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("jwt"); // Check the token
       console.log("Token in Header:", token); // Debug log for token
-      console.log("LoggedIn:", loggedIn, "UserId:", userId); // Debug log for loggedIn and userId
-      if (loggedIn && userId) {
+      console.log("LoggedIn:", true, "UserId:", userId); // Force LoggedIn to true
+      if (true && userId) {
         try {
           const response = await axios.get(`${url}/dashboard/${userId}`, {
             headers: {
@@ -54,9 +54,9 @@ const Header = ({ userId }) => {
         }
       }
     };
-
+  
     fetchUserData();
-  }, [userId, loggedIn]);
+  }, [userId]);  
 
   return (
     <header className="header-bar">
