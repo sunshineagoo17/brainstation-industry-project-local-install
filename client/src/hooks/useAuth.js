@@ -6,11 +6,7 @@ const useAuth = () => {
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     console.log("Token in useAuth:", token); // Debug log for token
-    if (token) {
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    }
+    setLoggedIn(!!token); 
   }, []);
 
   return loggedIn;

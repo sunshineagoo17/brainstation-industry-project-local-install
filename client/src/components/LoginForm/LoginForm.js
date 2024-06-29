@@ -44,7 +44,7 @@ const LoginForm = () => {
         };
         const response = await Api.post('/auth/login', loginPayload);
         const { id: userId, message, token, success } = response.data;
-
+  
         if (success) {
           localStorage.setItem("jwt", token);
           navigate(`/dashboard/${userId}`);
@@ -54,15 +54,10 @@ const LoginForm = () => {
       } catch (error) {
         console.error("Login error:", error);
         if (error.response) {
-          console.error("Response data:", error.response.data);
-          console.error("Response status:", error.response.status);
-          console.error("Response headers:", error.response.headers);
           setErrors({ form: error.response.data.message || "Unable to Login User." });
         } else if (error.request) {
-          console.error("Request data:", error.request);
           setErrors({ form: "No response from server. Please try again later." });
         } else {
-          console.error("Error message:", error.message);
           setErrors({ form: "Login request failed. Please try again." });
         }
       }
