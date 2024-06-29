@@ -7,7 +7,7 @@
         "start": "node server/index.js",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm install --prefix server && npm run build --prefix client",
          "migrate": "cd server && npx knex migrate:latest --knexfile ./knexfile.js --env production",
-         "migrate-and-seed": "npx knex migrate:latest && npx knex seed:run"
+         "migrate-and-seed": "cd server && npx knex migrate:latest --knexfile ./knexfile.js --env production && npx knex seed:run --knexfile ./knexfile.js --env production"
     },
     "dependencies": {
         "axios": "^0.21.1",
