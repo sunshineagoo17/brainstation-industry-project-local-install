@@ -4,7 +4,7 @@ const url = require('url');
 // Parse the JAWSDB_MARIA_URL
 const dbUrl = process.env.JAWSDB_MARIA_URL ? url.parse(process.env.JAWSDB_MARIA_URL) : null;
 const [user, password] = dbUrl ? dbUrl.auth.split(':') : [null, null];
-const dbName = dbUrl ? dbUrl.path.substring(1) : null;
+const dbName = dbUrl ? dbUrl.pathname.substring(1) : null;
 const dbHost = dbUrl ? dbUrl.hostname : null;
 const dbPort = dbUrl ? dbUrl.port : null;
 
