@@ -73,6 +73,10 @@ const ProductList = ({ userId }) => {
           axios.get(`${url}/api/data/compare/dell-newegg`)
         ]);
 
+        console.log("Dell response:", dellResponse.data);
+        console.log("BestBuy response:", bestbuyResponse.data);
+        console.log("Newegg response:", neweggResponse.data);
+
         if (!Array.isArray(dellResponse.data) || !Array.isArray(bestbuyResponse.data) || !Array.isArray(neweggResponse.data)) {
           throw new Error("Expected JSON response to be an array");
         }
