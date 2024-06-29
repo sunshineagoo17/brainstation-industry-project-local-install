@@ -8,8 +8,7 @@
     "start-scheduler": "node scheduler.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client",
-    "migrate": "npx knex migrate:latest",
-    "seed": "npx knex seed:run"
+    "migrate-and-seed": "npx knex migrate:latest --env production && npx knex seed:run --env production"
   },
   "author": "",
   "license": "ISC",

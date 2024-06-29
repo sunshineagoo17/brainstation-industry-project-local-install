@@ -1,2 +1,2 @@
-release: npx knex migrate:latest && npx knex seed:run
+release: npm run migrate-and-seed
 web: npm run start --prefix server
