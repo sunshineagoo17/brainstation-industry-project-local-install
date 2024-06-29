@@ -51,44 +51,6 @@ function getCurrentDate() {
   return `${current_time.getFullYear()}${String(current_time.getMonth() + 1).padStart(2, '0')}${String(current_time.getDate()).padStart(2, '0')}`;
 }
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
-
-// Endpoint to test database connection
-app.get('/test-db-connection', async (req, res) => {
-  try {
-    const knex = require('knex')({
-      client: 'mysql',
-      connection: {
-        host: DB_HOST,
-        user: DB_USER,
-        password: DB_PASSWORD,
-        database: DB_NAME
-      }
-    });
-    await knex.raw('SELECT 1+1 AS result');
-    res.status(200).json({ message: 'Database connection successful' });
-  } catch (error) {
-    console.error('Database connection failed:', error);
-    res.status(500).json({ message: 'Database connection failed', error });
-  }
-});
-
-// Platform-specific logging
-if (process.platform === 'win32') {
-  console.log('Running on Windows');
-} else if (process.platform === 'darwin') {
-  console.log('Running on macOS');
-} else {
-  console.log('Running on a non-Windows, non-macOS platform');
-}
-
 // Data Fetch Endpoints
 const createDataEndpoint = (route, filePattern) => {
   router.get(route, async (req, res) => {
@@ -125,6 +87,15 @@ createDataEndpoint('/newegg', 'newegg_dell_monitor');
 createDataEndpoint('/dashboard', 'combined_dashboard_data');
 
 app.use('/api/data', router);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.use(express.static('public'));
 
