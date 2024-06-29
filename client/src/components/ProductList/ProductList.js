@@ -84,37 +84,52 @@ const ProductList = ({ userId }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const dellResponse = await axios.get(`${url}/api/data/dell`);
-        const bestbuyResponse = await axios.get(`${url}/api/data/compare/dell-bestbuy`);
-        const neweggResponse = await axios.get(`${url}/api/data/compare/dell-newegg`);
+        const [dellResponse, bestbuyResponse, neweggResponse] = await Promise.all([
+          axios.get(`${url}/api/data/dell`),
+          axios.get(`${url}/api/data/compare/dell-bestbuy`),
+          axios.get(`${url}/api/data/compare/dell-newegg`)
+        ]);
   
-        console.log("Fetched Dell Data:", dellResponse.data); // Log dell data
-        console.log("Fetched BestBuy Data:", bestbuyResponse.data); // Log bestbuy data
-        console.log("Fetched Newegg Data:", neweggResponse.data); // Log newegg data
+        // Check if responses are JSON
+        if (!dellResponse.headers['content-type'].includes('application/json')) {
+          throw new Error("Dell response is not JSON");
+        }
+        if (!bestbuyResponse.headers['content-type'].includes('application/json')) {
+          throw new Error("BestBuy response is not JSON");
+        }
+        if (!neweggResponse.headers['content-type'].includes('application/json')) {
+          throw new Error("Newegg response is not JSON");
+        }
   
+        // Log fetched data
+        console.log("Fetched Dell Data:", dellResponse.data);
+        console.log("Fetched BestBuy Data:", bestbuyResponse.data);
+        console.log("Fetched Newegg Data:", neweggResponse.data);
+  
+        // Verify if the data is an array
         if (!Array.isArray(dellResponse.data)) {
           console.error("Dell data is not an array:", dellResponse.data);
+          return;
         }
         if (!Array.isArray(bestbuyResponse.data)) {
           console.error("BestBuy data is not an array:", bestbuyResponse.data);
+          return;
         }
         if (!Array.isArray(neweggResponse.data)) {
           console.error("Newegg data is not an array:", neweggResponse.data);
+          return;
         }
   
-        const combinedData = combineData(
-          dellResponse.data,
-          bestbuyResponse.data,
-          neweggResponse.data
-        );
+        // Combine data if valid
+        const combinedData = combineData(dellResponse.data, bestbuyResponse.data, neweggResponse.data);
         setProducts(combinedData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       }
     };
   
     fetchProducts();
-  }, [combineData]);  
+  }, [combineData]);
 
   const handleExport = () => {
     if (products.length === 0) {
