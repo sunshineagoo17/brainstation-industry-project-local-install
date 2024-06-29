@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import boxIcon from "../../assets/icons/box-icon.svg";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import { unparse } from "papaparse";
+import boxIcon from "../../assets/icons/box-icon.svg";
 import "./ProductList.scss";
 
 const url = process.env.REACT_APP_BASE_URL;
@@ -23,63 +23,46 @@ const ProductList = ({ userId }) => {
   }, []);
 
   const getStatus = (deviation) => {
-    if (isNaN(deviation)) {
-      return "Undetermined";
-    }
+    if (isNaN(deviation)) return "Undetermined";
     const absDeviation = Math.abs(deviation);
-    if (absDeviation <= 5) {
-      return "Compliant";
-    } else if (absDeviation > 5 && absDeviation <= 15) {
-      return "Attention";
-    } else if (absDeviation > 15) {
-      return "Non-Compliant";
-    }
-    return "Undetermined";
+    if (absDeviation <= 5) return "Compliant";
+    if (absDeviation <= 15) return "Attention";
+    return "Non-Compliant";
   };
 
   const combineData = useCallback((dell, bestbuy, newegg) => {
-    console.log("Combining data...");
-    console.log("Dell data:", dell);
-    console.log("BestBuy data:", bestbuy);
-    console.log("Newegg data:", newegg);
-  
     let offendersCount = 0;
     const generateId = generateShortUUID();
     const combined = dell.map((dellItem) => {
-      const bestbuyItem = bestbuy.find((item) => item.Dell_product === dellItem.Dell_product) || {};
-      const neweggItem = newegg.find((item) => item.Dell_product === dellItem.Dell_product) || {};
-  
+      const bestbuyItem = bestbuy.find(item => item.Dell_product === dellItem.Dell_product) || {};
+      const neweggItem = newegg.find(item => item.Dell_product === dellItem.Dell_product) || {};
+
       const bestbuyPrice = parseFloat(bestbuyItem.Bestbuy_price);
       const neweggPrice = parseFloat(neweggItem.Newegg_price);
       const msrp = parseFloat(dellItem.Dell_price);
-  
+
       const bestbuyDeviation = bestbuyPrice ? ((bestbuyPrice - msrp) / msrp) * 100 : NaN;
       const neweggDeviation = neweggPrice ? ((neweggPrice - msrp) / msrp) * 100 : NaN;
-  
-      if (!isNaN(bestbuyDeviation) && getStatus(bestbuyDeviation) !== "Compliant") {
-        offendersCount++;
-      }
-      if (!isNaN(neweggDeviation) && getStatus(neweggDeviation) !== "Compliant") {
-        offendersCount++;
-      }
-  
+
+      if (!isNaN(bestbuyDeviation) && getStatus(bestbuyDeviation) !== "Compliant") offendersCount++;
+      if (!isNaN(neweggDeviation) && getStatus(neweggDeviation) !== "Compliant") offendersCount++;
+
       return {
         id: generateId(),
         dellProductName: dellItem.Dell_product,
         msrp: dellItem.Dell_price,
-        bestbuyPrice: bestbuyItem.Bestbuy_price ? `$${parseFloat(bestbuyItem.Bestbuy_price).toFixed(2)}` : "Not Available",
+        bestbuyPrice: bestbuyItem.Bestbuy_price ? `$${bestbuyItem.Bestbuy_price.toFixed(2)}` : "Not Available",
         bestbuyDeviation: !isNaN(bestbuyDeviation) ? `${bestbuyDeviation.toFixed(2)}%` : "N/A",
         bestbuyCompliance: getStatus(bestbuyDeviation),
-        neweggPrice: neweggItem.Newegg_price ? `$${parseFloat(neweggItem.Newegg_price).toFixed(2)}` : "Not Available",
+        neweggPrice: neweggItem.Newegg_price ? `$${neweggItem.Newegg_price.toFixed(2)}` : "Not Available",
         neweggDeviation: !isNaN(neweggDeviation) ? `${neweggDeviation.toFixed(2)}%` : "N/A",
         neweggCompliance: getStatus(neweggDeviation),
       };
     });
-  
+
     setTotalOffenders(offendersCount);
-    console.log("Combined Data:", combined); // Debugging
     return combined.sort((a, b) => a.id - b.id);
-  }, [generateShortUUID]);  
+  }, [generateShortUUID]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -89,45 +72,22 @@ const ProductList = ({ userId }) => {
           axios.get(`${url}/api/data/compare/dell-bestbuy`),
           axios.get(`${url}/api/data/compare/dell-newegg`)
         ]);
-  
-        // Check if responses are JSON
-        if (!dellResponse.headers['content-type'].includes('application/json')) {
-          throw new Error("Dell response is not JSON");
+
+        if (typeof dellResponse.data !== "object" || typeof bestbuyResponse.data !== "object" || typeof neweggResponse.data !== "object") {
+          throw new Error("Expected JSON response");
         }
-        if (!bestbuyResponse.headers['content-type'].includes('application/json')) {
-          throw new Error("BestBuy response is not JSON");
-        }
-        if (!neweggResponse.headers['content-type'].includes('application/json')) {
-          throw new Error("Newegg response is not JSON");
-        }
-  
-        // Log fetched data
-        console.log("Fetched Dell Data:", dellResponse.data);
-        console.log("Fetched BestBuy Data:", bestbuyResponse.data);
-        console.log("Fetched Newegg Data:", neweggResponse.data);
-  
-        // Verify if the data is an array
-        if (!Array.isArray(dellResponse.data)) {
-          console.error("Dell data is not an array:", dellResponse.data);
-          return;
-        }
-        if (!Array.isArray(bestbuyResponse.data)) {
-          console.error("BestBuy data is not an array:", bestbuyResponse.data);
-          return;
-        }
-        if (!Array.isArray(neweggResponse.data)) {
-          console.error("Newegg data is not an array:", neweggResponse.data);
-          return;
-        }
-  
-        // Combine data if valid
-        const combinedData = combineData(dellResponse.data, bestbuyResponse.data, neweggResponse.data);
+
+        const combinedData = combineData(
+          dellResponse.data,
+          bestbuyResponse.data,
+          neweggResponse.data
+        );
         setProducts(combinedData);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
     };
-  
+
     fetchProducts();
   }, [combineData]);
 
@@ -136,8 +96,6 @@ const ProductList = ({ userId }) => {
       console.warn("No products to export.");
       return;
     }
-
-    console.log("Exporting Data:", products); // Debugging
 
     const fields = [
       "id",
@@ -153,7 +111,7 @@ const ProductList = ({ userId }) => {
 
     const csvData = unparse({
       fields,
-      data: products.map((product) => ({
+      data: products.map(product => ({
         id: product.id,
         dellProductName: product.dellProductName,
         msrp: product.msrp,
@@ -166,18 +124,11 @@ const ProductList = ({ userId }) => {
       })),
     });
 
-    console.log("CSV Data:", csvData); // Debugging
-
     const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
     saveAs(blob, "dell_product_pricing_compliance_products_list_data_generated_by_spectra.csv");
   };
 
-  const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + "...";
-    }
-    return text;
-  };
+  const truncateText = (text, maxLength) => (text.length > maxLength ? `${text.substring(0, maxLength)}...` : text);
 
   const handleSort = (key) => {
     let direction = "ascending";
@@ -190,31 +141,10 @@ const ProductList = ({ userId }) => {
       sortedProducts.sort((a, b) => {
         if (key === "dellProductName") {
           return direction === "ascending" ? a[key].localeCompare(b[key]) : b[key].localeCompare(a[key]);
-        } else if (key === "msrp" || key === "bestbuyPrice" || key === "neweggPrice") {
-          const aValue = parseFloat(a[key].replace('$', '')) || a[key];
-          const bValue = parseFloat(b[key].replace('$', '')) || b[key];
-          if (!isNaN(aValue) && !isNaN(bValue)) {
-            return direction === "ascending" ? aValue - bValue : bValue - aValue;
-          } else {
-            return direction === "ascending" ? String(aValue).localeCompare(String(bValue)) : String(bValue).localeCompare(String(aValue));
-          }
-        } else if (key === "bestbuyDeviation" || key === "neweggDeviation") {
-          const aValue = parseFloat(a[key].replace('%', '')) || a[key];
-          const bValue = parseFloat(b[key].replace('%', '')) || b[key];
-          if (!isNaN(aValue) && !isNaN(bValue)) {
-            return direction === "ascending" ? aValue - bValue : bValue - aValue;
-          } else {
-            return direction === "ascending" ? String(aValue).localeCompare(String(bValue)) : String(bValue).localeCompare(String(aValue));
-          }
-        } else {
-          if (a[key] < b[key]) {
-            return direction === "ascending" ? -1 : 1;
-          }
-          if (a[key] > b[key]) {
-            return direction === "ascending" ? 1 : -1;
-          }
-          return 0;
         }
+        const aValue = parseFloat(a[key].replace(/[^\d.-]/g, '')) || 0;
+        const bValue = parseFloat(b[key].replace(/[^\d.-]/g, '')) || 0;
+        return direction === "ascending" ? aValue - bValue : bValue - aValue;
       });
       return sortedProducts;
     });
