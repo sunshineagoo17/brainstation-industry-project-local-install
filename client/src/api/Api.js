@@ -1,4 +1,3 @@
-// server/api.js
 const axios = require('axios');
 
 const api = axios.create({

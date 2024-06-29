@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import Api from "../Api/Api";
+import Api from "../../api/Api";
 import "./RegisterForm.scss";
 
 const RegisterForm = () => {
