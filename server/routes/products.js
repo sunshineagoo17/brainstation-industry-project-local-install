@@ -21,7 +21,7 @@ router.get('/dell', async (req, res) => {
   try {
     const dellData = await csvtojson().fromFile(dellFilePath);
     console.log('Fetched Dell Data:', dellData);
-    res.json(dellData);
+    res.json(Array.isArray(dellData) ? dellData : []);
   } catch (error) {
     console.error(`Error fetching Dell data: ${error.message}`);
     res.status(500).json({ message: 'Error fetching Dell data', error });
@@ -36,10 +36,7 @@ router.get('/compare/dell-bestbuy', async (req, res) => {
   try {
     const bestbuyData = await csvtojson().fromFile(bestbuyFilePath);
     console.log('Fetched BestBuy Data:', bestbuyData);
-    if (bestbuyData.length === 0) {
-      return res.status(204).json({ message: 'No content' });
-    }
-    res.json(bestbuyData);
+    res.json(Array.isArray(bestbuyData) ? bestbuyData : []);
   } catch (error) {
     console.error(`Error fetching BestBuy data: ${error.message}`);
     res.status(500).json({ message: 'Error fetching BestBuy data', error });
@@ -54,10 +51,7 @@ router.get('/compare/dell-newegg', async (req, res) => {
   try {
     const neweggData = await csvtojson().fromFile(neweggFilePath);
     console.log('Fetched Newegg Data:', neweggData);
-    if (neweggData.length === 0) {
-      return res.status(204).json({ message: 'No content' });
-    }
-    res.json(neweggData);
+    res.json(Array.isArray(neweggData) ? neweggData : []);
   } catch (error) {
     console.error(`Error fetching Newegg data: ${error.message}`);
     res.status(500).json({ message: 'Error fetching Newegg data', error });
@@ -82,7 +76,7 @@ router.get('/', async (req, res) => {
     console.log('Fetched BestBuy Data:', bestbuyData);
     console.log('Fetched Newegg Data:', neweggData);
 
-    if (dellData.length === 0 || bestbuyData.length === 0 || neweggData.length === 0) {
+    if (!Array.isArray(dellData) || !Array.isArray(bestbuyData) || !Array.isArray(neweggData)) {
       return res.status(204).json({ message: 'No content' });
     }
 
