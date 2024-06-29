@@ -1,11 +1,10 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://api.heroku.com',
+  baseURL: process.env.REACT_APP_BASE_URL || 'https://spectra-de1476b6df25.herokuapp.com',
   headers: {
-    'Authorization': `Bearer ${process.env.HEROKU_API_KEY}`,
-    'Accept': 'application/vnd.heroku+json; version=3'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
-module.exports = api;
+export default api;
