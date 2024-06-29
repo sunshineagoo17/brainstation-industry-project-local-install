@@ -93,6 +93,11 @@
   width: auto;
   max-width: 7.9375rem;
 
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+
   &__titles {
     display: flex;
     flex-direction: column;

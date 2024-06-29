@@ -54,9 +54,9 @@ const Header = ({ userId }) => {
         }
       }
     };
-  
+
     fetchUserData();
-  }, [userId]);  
+  }, [userId]);
 
   return (
     <header className="header-bar">
@@ -68,9 +68,7 @@ const Header = ({ userId }) => {
             alt="magnifying glass search icon"
           />
           <input
-            className={`header-wrapper__search--input ${
-              isTyping ? "typing" : ""
-            }`}
+            className={`header-wrapper__search--input ${isTyping ? "typing" : ""}`}
             type="search"
             placeholder="Search"
             onFocus={() => setIsTyping(true)}
@@ -88,28 +86,34 @@ const Header = ({ userId }) => {
               alt="bell icon for the alert icon"
             />
           </Link>
-          <div className="user-info">
-            <div
-              className="user-info__titles"
-              ref={userNameRef}
-              style={{
-                maxWidth: "60px",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              <h5 className="user-info__titles--name">{displayName}</h5>
-              <p className="user-info__titles--position">Admin</p>
+          <Link
+            to={`/dashboard/${userId}/settings`}
+            className="user-info__link"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className="user-info">
+              <div
+                className="user-info__titles"
+                ref={userNameRef}
+                style={{
+                  maxWidth: "60px",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <h5 className="user-info__titles--name">{displayName}</h5>
+                <p className="user-info__titles--position">Admin</p>
+              </div>
+              <div className="img-cont">
+                <img
+                  src={accountIcon}
+                  className="user-info__icon"
+                  alt="person outline account icon"
+                />
+              </div>
             </div>
-            <div className="img-cont">
-              <img
-                src={accountIcon}
-                className="user-info__icon"
-                alt="person outline account icon"
-              />
-            </div>
-          </div>
+          </Link>
         </div>
       </div>
     </header>
