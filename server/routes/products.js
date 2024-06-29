@@ -20,7 +20,7 @@ router.get('/dell', async (req, res) => {
 
   try {
     const dellData = await csvtojson().fromFile(dellFilePath);
-    console.log('Dell Data:', dellData); // Log the data
+    console.log('Fetched Dell Data:', dellData);
     res.json(dellData);
   } catch (error) {
     console.error(`Error fetching Dell data: ${error.message}`);
@@ -35,7 +35,7 @@ router.get('/compare/dell-bestbuy', async (req, res) => {
 
   try {
     const bestbuyData = await csvtojson().fromFile(bestbuyFilePath);
-    console.log('BestBuy Data:', bestbuyData); // Log the data
+    console.log('Fetched BestBuy Data:', bestbuyData);
     if (bestbuyData.length === 0) {
       return res.status(204).json({ message: 'No content' });
     }
@@ -53,7 +53,7 @@ router.get('/compare/dell-newegg', async (req, res) => {
 
   try {
     const neweggData = await csvtojson().fromFile(neweggFilePath);
-    console.log('Newegg Data:', neweggData); // Log the data
+    console.log('Fetched Newegg Data:', neweggData);
     if (neweggData.length === 0) {
       return res.status(204).json({ message: 'No content' });
     }
@@ -78,9 +78,9 @@ router.get('/', async (req, res) => {
       csvtojson().fromFile(neweggFilePath)
     ]);
 
-    console.log('Dell Data:', dellData); // Log the data
-    console.log('BestBuy Data:', bestbuyData); // Log the data
-    console.log('Newegg Data:', neweggData); // Log the data
+    console.log('Fetched Dell Data:', dellData);
+    console.log('Fetched BestBuy Data:', bestbuyData);
+    console.log('Fetched Newegg Data:', neweggData);
 
     if (dellData.length === 0 || bestbuyData.length === 0 || neweggData.length === 0) {
       return res.status(204).json({ message: 'No content' });

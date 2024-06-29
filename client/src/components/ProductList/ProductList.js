@@ -50,11 +50,11 @@ const ProductList = ({ userId }) => {
       return {
         id: generateId(),
         dellProductName: dellItem.Dell_product,
-        msrp: dellItem.Dell_price,
-        bestbuyPrice: bestbuyItem.Bestbuy_price ? `$${bestbuyItem.Bestbuy_price.toFixed(2)}` : "Not Available",
+        msrp: dellItem.Dell_price ? `$${parseFloat(dellItem.Dell_price).toFixed(2)}` : "Not Available",
+        bestbuyPrice: bestbuyItem.Bestbuy_price ? `$${parseFloat(bestbuyItem.Bestbuy_price).toFixed(2)}` : "Not Available",
         bestbuyDeviation: !isNaN(bestbuyDeviation) ? `${bestbuyDeviation.toFixed(2)}%` : "N/A",
         bestbuyCompliance: getStatus(bestbuyDeviation),
-        neweggPrice: neweggItem.Newegg_price ? `$${neweggItem.Newegg_price.toFixed(2)}` : "Not Available",
+        neweggPrice: neweggItem.Newegg_price ? `$${parseFloat(neweggItem.Newegg_price).toFixed(2)}` : "Not Available",
         neweggDeviation: !isNaN(neweggDeviation) ? `${neweggDeviation.toFixed(2)}%` : "N/A",
         neweggCompliance: getStatus(neweggDeviation),
       };
@@ -73,8 +73,8 @@ const ProductList = ({ userId }) => {
           axios.get(`${url}/api/data/compare/dell-newegg`)
         ]);
 
-        if (typeof dellResponse.data !== "object" || typeof bestbuyResponse.data !== "object" || typeof neweggResponse.data !== "object") {
-          throw new Error("Expected JSON response");
+        if (!Array.isArray(dellResponse.data) || !Array.isArray(bestbuyResponse.data) || !Array.isArray(neweggResponse.data)) {
+          throw new Error("Expected JSON response to be an array");
         }
 
         const combinedData = combineData(
@@ -190,21 +190,21 @@ const ProductList = ({ userId }) => {
               <tr className="product-table__row" key={product.id}>
                 <td className="product-table__row--item row-id">{product.id}</td>
                 <td className="product-table__row--item row-name" title={product.dellProductName}>{truncateText(product.dellProductName, 15)}</td>
-                <td className="product-table__row--item row-msrp">{product.msrp ? `$${product.msrp}` : product.msrp}</td>
+                <td className="product-table__row--item row-msrp">{product.msrp ? product.msrp : "Not Available"}</td>
                 <td className="product-table__row--item row-bbp">
-                  <span className={`cell-content ${product.bestbuyPrice === "Not Available" ? "not-available" : ""}`}>{product.bestbuyPrice && product.bestbuyPrice !== "Not Available" ? product.bestbuyPrice : product.bestbuyPrice}</span>
+                  <span className={`cell-content ${product.bestbuyPrice === "Not Available" ? "not-available" : ""}`}>{product.bestbuyPrice}</span>
                 </td>
                 <td className="product-table__row--item row-bbd">
-                  <span className={`cell-content ${product.bestbuyDeviation === "N/A" ? "not-available" : ""}`}>{product.bestbuyDeviation && product.bestbuyDeviation !== "N/A" ? `${product.bestbuyDeviation}` : product.bestbuyDeviation}</span>
+                  <span className={`cell-content ${product.bestbuyDeviation === "N/A" ? "not-available" : ""}`}>{product.bestbuyDeviation}</span>
                 </td>
                 <td className="product-table__row--item row-bbc">
                   <span className={`cell-content ${product.bestbuyCompliance === "Compliant" ? "compliant" : ""} ${product.bestbuyCompliance === "Non-Compliant" ? "noncompliant" : ""} ${product.bestbuyCompliance === "Attention" ? "attention" : ""} ${product.bestbuyCompliance === "Undetermined" ? "not-available" : ""}`}>{product.bestbuyCompliance}</span>
                 </td>
                 <td className="product-table__row--item row-nep">
-                  <span className={`cell-content ${product.neweggPrice === "Not Available" ? "not-available" : ""}`}>{product.neweggPrice && product.neweggPrice !== "Not Available" ? product.neweggPrice : product.neweggPrice}</span>
+                  <span className={`cell-content ${product.neweggPrice === "Not Available" ? "not-available" : ""}`}>{product.neweggPrice}</span>
                 </td>
                 <td className="product-table__row--item row-ned">
-                  <span className={`cell-content ${product.neweggDeviation === "N/A" ? "not-available" : ""}`}>{product.neweggDeviation && product.neweggDeviation !== "N/A" ? `${product.neweggDeviation}` : product.neweggDeviation}</span>
+                  <span className={`cell-content ${product.neweggDeviation === "N/A" ? "not-available" : ""}`}>{product.neweggDeviation}</span>
                 </td>
                 <td className="product-table__row--item row-nec">
                   <span className={`cell-content ${product.neweggCompliance === "Compliant" ? "compliant" : ""} ${product.neweggCompliance === "Non-Compliant" ? "noncompliant" : ""} ${product.neweggCompliance === "Attention" ? "attention" : ""} ${product.neweggCompliance === "Undetermined" ? "not-available" : ""}`}>{product.neweggCompliance}</span>
