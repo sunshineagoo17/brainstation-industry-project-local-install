@@ -10,6 +10,7 @@ const { JWT_SECRET, JWT_EXPIRY } = process.env;
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log(`Login attempt for email: ${email}`);
 
   if (!password) {
     return res.status(400).json({
@@ -23,6 +24,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await knex('users').where({ email }).first();
+    console.log('User fetched:', user);
 
     if (!user) {
       return res.status(401).json({
@@ -31,6 +33,7 @@ router.post('/login', async (req, res) => {
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('Password valid:', isPasswordValid);
 
     if (!isPasswordValid) {
       return res.status(401).json({
@@ -41,6 +44,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
       expiresIn: JWT_EXPIRY,
     });
+    console.log('Token generated:', token);
 
     return res.status(200).json({
       success: true,
