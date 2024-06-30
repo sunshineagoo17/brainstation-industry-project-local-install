@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const csvtojson = require('csvtojson');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config(); 
 
 const app = express();
 const router = express.Router();
@@ -40,47 +40,18 @@ function getCurrentDate() {
   return `${current_time.getFullYear()}${String(current_time.getMonth() + 1).padStart(2, '0')}${String(current_time.getDate()).padStart(2, '0')}`;
 }
 
-// Function to find the most recent file if the current date's file is not available
-function findMostRecentFile(filePattern) {
-  const files = fs.readdirSync(DATA_DIR);
-  const regex = new RegExp(`${filePattern}_\\d{8}\\.csv`);
-  const matchingFiles = files.filter(file => regex.test(file));
-
-  if (matchingFiles.length === 0) {
-    return null;
-  }
-
-  matchingFiles.sort((a, b) => {
-    const dateA = a.match(/(\d{8})\.csv$/)[1];
-    const dateB = b.match(/(\d{8})\.csv$/)[1];
-    return dateB.localeCompare(dateA);
-  });
-
-  return matchingFiles[0];
-}
-
 // Data Fetch Endpoints
 const createDataEndpoint = (route, filePattern) => {
   router.get(route, async (req, res) => {
     const date = getCurrentDate();
-    let filePath = path.join(DATA_DIR, `${filePattern}_${date}.csv`);
+    const filePath = path.join(DATA_DIR, `${filePattern}_${date}.csv`);
 
-    console.log(`Attempting to fetch data from: ${filePath}`); // Debug log
+    console.log(`Fetching data from: ${filePath}`); // Debug log
 
     try {
       if (!fs.existsSync(filePath)) {
         console.error(`File does not exist: ${filePath}`);
-
-        const mostRecentFile = findMostRecentFile(filePattern);
-        if (!mostRecentFile) {
-          console.error(`No recent files found for pattern: ${filePattern}`);
-          return res.status(404).json({ message: `No recent files found for pattern: ${filePattern}. Please perform a manual scrape.` });
-        }
-
-        filePath = path.join(DATA_DIR, mostRecentFile);
-        console.log(`Using most recent file: ${filePath}`);
-      } else {
-        console.log('Current date file found.');
+        return res.status(404).json({ message: `File does not exist: ${filePath}` });
       }
 
       const data = await csvtojson().fromFile(filePath);
@@ -89,11 +60,6 @@ const createDataEndpoint = (route, filePattern) => {
         console.error('Data is not an array:', data);
         return res.status(500).json({ message: 'Error: Expected data to be an array' });
       }
-
-      if (!fs.existsSync(filePath)) {
-        console.log('Using most recent data. Please scrape for the most recent data.');
-      }
-
       res.json(data);
     } catch (error) {
       console.error(`Error fetching data: ${error.message}`);
