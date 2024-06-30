@@ -2,24 +2,33 @@ const express = require("express");
 const router = express.Router();
 const csvtojson = require("csvtojson");
 const path = require("path");
+const fs = require("fs");
 const bcrypt = require("bcrypt");
 const knex = require("../knex");
 
 // Define paths to your CSV files
 const DATA_DIR = path.resolve(__dirname, "../scripts/data");
 
-// Function to get the current date in the desired format (YYYYMMDD)
-function getCurrentDate() {
-  const current_time = new Date();
-  return `${current_time.getFullYear()}${String(current_time.getMonth() + 1).padStart(2, '0')}${String(current_time.getDate()).padStart(2, '0')}`;
+// Function to get the most recent file matching a pattern
+function getMostRecentFile(pattern) {
+  const files = fs.readdirSync(DATA_DIR).filter(file => file.includes(pattern));
+  if (files.length === 0) {
+    return null;
+  }
+  files.sort((a, b) => fs.statSync(path.join(DATA_DIR, b)).mtime - fs.statSync(path.join(DATA_DIR, a)).mtime);
+  return files[0];
 }
 
-// Get the current date
-const currentDate = getCurrentDate();
+// Get the most recent files
+const mostRecentBestBuyFile = getMostRecentFile("bestbuy_comparison");
+const mostRecentNeweggFile = getMostRecentFile("newegg_comparison");
 
-// Updated paths to include current date in filenames
-const BESTBUY_CSV = path.join(DATA_DIR, `bestbuy_comparison_${currentDate}.csv`);
-const NEWEGG_CSV = path.join(DATA_DIR, `newegg_comparison_${currentDate}.csv`);
+if (!mostRecentBestBuyFile || !mostRecentNeweggFile) {
+  throw new Error("No recent data files found.");
+}
+
+const BESTBUY_CSV = path.join(DATA_DIR, mostRecentBestBuyFile);
+const NEWEGG_CSV = path.join(DATA_DIR, mostRecentNeweggFile);
 
 // Get the user ID when authorized
 router

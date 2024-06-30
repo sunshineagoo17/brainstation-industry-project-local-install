@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const csvtojson = require('csvtojson');
 const cors = require('cors');
-require('dotenv').config(); 
+require('dotenv').config();
 
 const app = express();
 const router = express.Router();
@@ -34,17 +34,27 @@ app.use('/api/products', productsRoutes);
 app.use('/api/retailers', retailersRoutes);
 app.use('/api/data', dataRoutes);
 
-// Function to get the current date in the desired format
-function getCurrentDate() {
-  const current_time = new Date();
-  return `${current_time.getFullYear()}${String(current_time.getMonth() + 1).padStart(2, '0')}${String(current_time.getDate()).padStart(2, '0')}`;
+// Function to get the most recent data file
+function getMostRecentFile(pattern) {
+  const files = fs.readdirSync(DATA_DIR).filter(file => file.includes(pattern));
+  if (files.length === 0) {
+    return null;
+  }
+  files.sort((a, b) => fs.statSync(path.join(DATA_DIR, b)).mtime - fs.statSync(path.join(DATA_DIR, a)).mtime);
+  return files[0];
 }
 
 // Data Fetch Endpoints
 const createDataEndpoint = (route, filePattern) => {
   router.get(route, async (req, res) => {
-    const date = getCurrentDate();
-    const filePath = path.join(DATA_DIR, `${filePattern}_${date}.csv`);
+    const mostRecentFile = getMostRecentFile(filePattern);
+
+    if (!mostRecentFile) {
+      console.error(`No files found for pattern: ${filePattern}`);
+      return res.status(404).json({ message: `No files found for pattern: ${filePattern}` });
+    }
+
+    const filePath = path.join(DATA_DIR, mostRecentFile);
 
     console.log(`Fetching data from: ${filePath}`); // Debug log
 
