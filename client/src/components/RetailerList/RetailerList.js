@@ -25,6 +25,15 @@ const RetailerList = ({ userId }) => {
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        // Attempt to fetch the most recent data
+        const recentResponse = await axios.get(`${url}/api/retailers/recent`);
+        if (recentResponse.data) {
+          console.log("Fetched most recent available data:", recentResponse.data);
+          setData(recentResponse.data);
+          console.log("Current CSV is missing. Using the most recent data available. Please scrape for the most recent data.");
+        } else {
+          console.error("No recent data available. Please perform a manual scrape.");
+        }
       } finally {
         setLoading(false);
       }
