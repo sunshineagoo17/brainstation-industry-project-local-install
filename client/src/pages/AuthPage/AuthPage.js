@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import LoginForm from "../../components/LoginForm/LoginForm";
-import spectraLogo from "../../assets/images/logos/dell-spectra-logo-dark.svg";
+import spectraLogo from "../../assets/images/logos/spectra-logo-dark.svg";
 import "./AuthPage.scss";
 
 export const AuthPage = () => {

@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import spectraLogo from "../../assets/images/logos/dell-spectra-logo-wh.svg";
+import spectraLogo from "../../assets/images/logos/spectra-logo-white.svg";
 import dashboardIcon from "../../assets/icons/dashboard-icon.svg";
 import productsIcon from "../../assets/icons/products-icon.svg";
 import retailersIcon from "../../assets/icons/retailers-icon.svg";

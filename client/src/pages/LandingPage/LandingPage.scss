@@ -126,19 +126,38 @@ main {
   }
 }
 
-.dell-logo {
-  height: 80%;
+.spectra-right-column-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  height: 100%;
+  width: auto;
+}
+
+.spectra-logo-white {
+  display: flex;
+  justify-content: flex-end;
+  z-index: 10; 
+  position: relative;
+  top: -21rem;
+}
+
+.spectra-logo-white img {
+  display: block;
+  width: 17rem;
+  height: auto;
 }
 
 .dell-molecules {
   box-shadow: var(--enhanced-drop-shadow);
   height: 508px;
   width: 641px;
+  z-index: 0;
 
   &__overlap {
     height: 508px;
     position: relative;
+    top: -6.25rem;
 
     &--group {
       height: 508px;
