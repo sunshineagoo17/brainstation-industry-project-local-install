@@ -2,20 +2,20 @@
 
 ## Overview
 
-Spectra is a PaaS solution that helps monitor and ensure MSRP compliance across authorized retailers from an e-commerce perspective for Dell Technologies. It tracks and identifies non-compliant pricing with high accuracy and supports scalability for a growing array of products and retailer platforms.
+Spectra is a PaaS solution that helps monitor and ensure MSRP compliance across authorized retailers from an e-commerce perspective. It tracks and identifies non-compliant pricing with high accuracy and supports scalability for a growing array of products and retailer platforms.
 
 ## Problem
 
-Dell Technologies manufactures and sells technology products to customers through two primary channels:
+Many companies manufacture and sell technology products to customers through two primary channels:
 
 1. Direct selling (we sell directly to the customer)
 2. Retailers (retailers sell to the customer)
 
-Dell Technologies requires retailers to adhere to their specified MSRPs (Manufacturer Suggested Retail Price). This practice helps maintain Dell Technologies’ brand perception, stabilize market prices, and prevent retailers from cannibalizing Dell’s direct sales.
+Manufacturers require retailers to adhere to their specified MSRPs (Manufacturer Suggested Retail Price). This practice helps maintain brand perception, stabilize market prices, and prevent retailers from undercutting direct sales.
 
 ## User Profile
 
-The lead data scientist at Dell Technologies in the Merchandising/Growth/Pricing department is responsible for tracking MSRP compliance. Based in Round Rock, Texas, this role involves flagging retailers guilty of underpricing to maintain Dell’s brand perception and market stability. The main goals include efficiently identifying top offending retailers and products, tracking price deviations, and exporting and sharing compliance reports. Motivations include maintaining market prices, preventing the undermining of Dell’s direct sales, and ensuring adherence to MSRP guidelines.
+The lead data analyst responsible for tracking MSRP compliance ensures retailers adhere to pricing guidelines. The main goals include efficiently identifying top offending retailers and products, tracking price deviations, and exporting and sharing compliance reports. Motivations include maintaining market prices, preventing price undercutting, and ensuring adherence to MSRP guidelines.
 
 ## Features
 
@@ -78,7 +78,7 @@ The Navigation and Header components provide a consistent user interface across 
 
 ### The Spectra Dashboard
 
-The Spectra dashboard offers a comprehensive and intuitive interface for monitoring MSRP compliance. It displays key metrics such as total offenders, top 5 deviated products, average deviation, and compliance rates. Users can view retailer-specific data, giving them a high-level view of their MSRP compliance. The dashboard also includes dynamic alerts and the ability to generate detailed compliance reports, making it easy for users to take actionable steps to address pricing discrepancies. With its user-friendly design and robust data visualization, the Spectra dashboard empowers Dell Technologies to efficiently manage and ensure MSRP compliance across multiple retailers.
+The Spectra dashboard offers a comprehensive and intuitive interface for monitoring MSRP compliance. It displays key metrics such as total offenders, top 5 deviated products, average deviation, and compliance rates. Users can view retailer-specific data, giving them a high-level view of their MSRP compliance. The dashboard also includes dynamic alerts and the ability to generate detailed compliance reports, making it easy for users to take actionable steps to address pricing discrepancies.
 
 ![Product List Page](./docs/images/spectra-products-page.png)
 
@@ -195,7 +195,7 @@ PORT=8080
 
 **# Database Variables**
 DB_HOST=127.0.0.1
-DB_NAME=Dell
+DB_NAME=Spectra
 DB_USER=root
 DB_PASSWORD=rootroot
 
@@ -216,8 +216,8 @@ BASE_URL=http://localhost:8080
 
 - Log in to MySQL
   - mysql -u root -p
-- Create the Dell database
-  - CREATE DATABASE DELL;
+- Create the Spectra database
+  - CREATE DATABASE SPECTRA;
 
 5. Run database migrations:
 
@@ -252,7 +252,7 @@ Follow these instructions for manual scraping.
 
 ### Notes:
 
-- By following these steps, you can set up the Spectra platform, ensure it is scraping data on schedule, and manually trigger data scrapes when needed. This comprehensive setup allows Dell Technologies to maintain accurate and up-to-date MSRP compliance monitoring across its retailer network.
+- By following these steps, you can set up the Spectra platform, ensure it is scraping data on schedule, and manually trigger data scrapes when needed. This comprehensive setup allows the user to maintain accurate and up-to-date MSRP compliance monitoring across its retailer network.
 
 ### Contact Us
 
